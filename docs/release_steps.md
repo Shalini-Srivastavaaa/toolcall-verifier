@@ -111,7 +111,7 @@ cd /home/user/Projects/toolcall-verifier
 1. In the GitHub README add the links to the model page, the dataset page and the Space (one line near the top).
 2. In the Hugging Face model card (`docs/model_card.md`, regenerate with `scripts/prepare_hf_model.py`) the GitHub links are already set; add the Space link if you want it.
 3. Tag the release in the release copy: `git tag v1.0 && git push origin v1.0`, and on GitHub create a release from the tag.
-4. Re-read `docs/licenses.md` section 3 (the terms for model-generated text are still not reviewed) and decide whether the README should say more about it than it does.
+4. Re-read `docs/licenses.md` section 3 (the terms for model-generated text were reviewed by the owner, D-034) and decide whether the README should say more about it than it does.
 
 ## If something goes wrong
 

@@ -1374,4 +1374,32 @@ No API call and no upload. **Your decisions:** Apache-2.0 for the code and the M
 
 ---
 
+## D-033 — Publication: GitHub, Hugging Face model and dataset live; hosted Space pending (2026-11-22)
+
+**Live URLs.** GitHub https://github.com/Shalini-Srivastavaaa/toolcall-verifier (public, Apache-2.0 detected, topics llm-agents, tool-calling, ai-safety, modernbert, evaluation, verifier); model https://huggingface.co/ShaliniSrivastava/toolcall-verifier-modernbert-v3b (public, apache-2.0); dataset https://huggingface.co/datasets/ShaliniSrivastava/toolcall-verifier-test-set (public, `license: other`). **Not published: the Space** (`ShaliniSrivastava/toolcall-verifier-demo`).
+
+**Release copy.** Rebuilt with `scripts/make_release.sh` and author `Shalini Srivastava <159019629+Shalini-Srivastavaaa@users.noreply.github.com>`; gitleaks 8.30.1 over files and history: 0 findings (each rebuild). The GitHub repository has two commits (the initial release and a cross-link commit, pushed normally, no force); both carry the noreply author, shown against the Shalini-Srivastavaaa account.
+
+**Verified.** *Model:* 12 files on the Hub, `model.safetensors` SHA-256 equal to the expected value, card license apache-2.0, and a fresh `snapshot_download` into a temp folder scored 3 public test rows (telecom, airline, retail) with `predict.py` within 0.00002 of the saved scores (limit 0.002). *Dataset:* 9 files; the Hub rejected the first upload because `license_link` was a relative path (`license: other` needs an https URL), so it is now the absolute URL of `DATA_LICENSE.md` on the Hub; 363 real rows, 170 incorrect (counted locally in the uploaded `test.jsonl`). The two files have different columns, so the card declares two configs, `real` (default) and `synthetic`. *GitHub:* README renders, the results chart (`docs/figures/auroc_comparison.png`) loads (1530 px wide), the Mermaid diagram renders, the license is detected as Apache-2.0. *Local demo:* `release/space/app.py` started from the pinned requirements, downloaded the model from the Hub and scored example 1 at 0.0253 (saved 0.0252, ALLOW, a known miss) and example 5 at 0.9976 (saved 0.9976, FLAG) through the Gradio client; this ran in an existing venv with the same pinned versions, not a fresh one.
+
+**Space pending.** Creating a Gradio Space on the free cpu-basic tier returned 402 Payment Required (needs Hugging Face PRO); nothing was created and no workaround was tried. `release/space/` stays in the repository with pinned requirements (torch 2.15.0, transformers 5.24.0, huggingface_hub 2.4.0, safetensors 0.8.0; gradio 6.32.0 from `sdk_version`, `python_version` 3.12), so the demo can be run locally (README section "Run the demo locally") or uploaded later with the commands in `docs/release_steps.md` step 4, now marked NOT DONE. The README badge and links to a hosted Space were removed. Those two docs mention the Space commands and the "NOT DONE" note and are in the public repository (`docs/release_steps.md`, `release/UPLOAD_COMMANDS.md`).
+
+**Dataset viewer.** Not confirmed. The datasets-server answered "busier than usual" on 9 attempts over several minutes; after the card declared the two configs it listed the splits (`real` and `synthetic`, each `test`) but `is-valid` still reported viewer false with the size jobs pending. To check later: https://huggingface.co/datasets/ShaliniSrivastava/toolcall-verifier-test-set.
+
+**Cross-links.** README: model and dataset badges and a dataset link next to the model link; model card: link to GitHub and the dataset; dataset card: links to GitHub and the model; only the changed cards were re-uploaded.
+
+**Open.** The README install line lists torch (`pip install torch transformers huggingface_hub`); the project `.venv` itself has no torch (an earlier venv was used for the checks). The terms for model-generated text (`docs/licenses.md` 3.2) are still unreviewed.
+
+---
+
+## D-034 — Provenance section in the dataset card; provider terms recorded as reviewed (2026-11-22)
+
+**Dataset card.** `release/test_set/README.md` has a "Provenance" section: the conversations and tool calls are model-generated (269 `natural` rows: τ²-bench simulations by gpt-4.1, gpt-4.1-mini, o4-mini, claude-3-7-sonnet with a gpt-4.1 user simulator; 94 `induced` rows: our runs with gpt-5-nano as agent and gpt-4.1-mini as user simulator; `test_synth`: scripted corruptions of benchmark conversations), the error labels of the 363 real rows are human decisions, the `test_synth` labels are true by construction and not human-reviewed, and the text is shared under τ²-bench's MIT license together with the providers' output terms. The intro sentence no longer calls the calls "real tool calls from agents" without saying the conversations are model-generated; the README and the model card say the same. Origin counts (269 and 94) were counted in `test.jsonl`; the model names are those of D-010, D-018, D-019 and D-027.
+
+**Licenses.** `docs/licenses.md` 3.2 changed from "not read / unreviewed" to: reviewed by the project owner on 2026-11-22, outputs owned by the user under the OpenAI and Anthropic terms, no competing-model use. This is the owner's conclusion; I did not read the terms and the section says so, and it is not legal advice. The older text is kept for the record. The statements "terms not reviewed" in the README, `DATA_LICENSE.md` (three copies), the model card and `DECISIONS.md` were changed to match. Not looked for: the τ²-bench authors' own statement about their transcripts.
+
+**Upload.** Only the dataset card (`README.md`) was re-uploaded to the Hub, as asked; the Hub copies of `DATA_LICENSE.md` and the model card still say "not reviewed" until they are re-uploaded. The GitHub repository was updated by a new commit.
+
+---
+
 <!-- Add new decisions below as the project progresses -->

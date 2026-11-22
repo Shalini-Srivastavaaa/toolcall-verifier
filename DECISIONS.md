@@ -1,6 +1,6 @@
 # Decisions that shaped the project
 
-A short list of the decisions that determined the final project: what was decided, why and the key number, with a link to the full entry. The complete log, with every experiment, caveat and correction, is [`docs/decision_log.md`](docs/decision_log.md) (D-001 to D-032).
+A short list of the decisions that determined the final project: what was decided, why and the key number, with a link to the full entry. The complete log, with every experiment, caveat and correction, is [`docs/decision_log.md`](docs/decision_log.md) (D-001 to D-034).
 
 ## 1. Seven-class taxonomy, defined by what the call does wrong
 
@@ -72,4 +72,4 @@ The shipped thresholds (5% and 10% false-alarm rate: 0.895 and 0.731, recall 0.2
 
 ## 18. Publishing: Apache-2.0, CC BY 4.0 labels, test set only
 
-Code and ModernBERT v3b weights are Apache-2.0; our human labels CC BY 4.0; the test set ships with τ²-bench's MIT notice; the training data (and with it CriticTool rows) is not published; release from a fresh git history. The terms for model-generated text are unreviewed. Full entry: [D-031](docs/decision_log.md#d-031--portfolio-packaging-license-audit-inference-package-writeup-model-card-demo-plan-2026-11-22), [D-032](docs/decision_log.md#d-032--publishing-licenses-public-test-set-clean-release-repo-hugging-face-prep-demo-v1-2026-11-22).
+Code and ModernBERT v3b weights are Apache-2.0; our human labels CC BY 4.0; the test set ships with τ²-bench's MIT notice; the training data (and with it CriticTool rows) is not published; release from a fresh git history. The terms for model-generated text were reviewed by the owner afterwards (outputs owned by the user under the OpenAI and Anthropic terms; no competing-model use; D-034). Full entry: [D-031](docs/decision_log.md#d-031--portfolio-packaging-license-audit-inference-package-writeup-model-card-demo-plan-2026-11-22), [D-032](docs/decision_log.md#d-032--publishing-licenses-public-test-set-clean-release-repo-hugging-face-prep-demo-v1-2026-11-22).
