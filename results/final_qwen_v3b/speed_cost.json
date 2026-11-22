@@ -1,0 +1,54 @@
+{
+ "judges": {
+  "openai-mini": {
+   "n_calls": 363,
+   "latency_p50_s": 3.933274791999793,
+   "latency_p95_s": 8.365291891399815,
+   "latency_mean_s": 4.490714831079901,
+   "cost_per_call_usd": 0.0011673849862258953,
+   "cost_total_usd": 0.42376075,
+   "mean_input_tokens": 3143.6997245179064,
+   "mean_output_tokens": 190.73002754820936
+  },
+  "openai-nano": {
+   "n_calls": 363,
+   "latency_p50_s": 2.879800666999472,
+   "latency_p95_s": 5.217194286898301,
+   "latency_mean_s": 3.3289705226004567,
+   "cost_per_call_usd": 0.0002587398071625345,
+   "cost_total_usd": 0.09392255000000001,
+   "mean_input_tokens": 3143.6997245179064,
+   "mean_output_tokens": 253.8870523415978
+  }
+ },
+ "t4": {
+  "modernbert_t4": {
+   "seconds_per_row_amortized": 0.03715594125500667,
+   "rows_per_second": 26.914,
+   "source": "docs/final_v3b_train_info.json val_metrics.eval_runtime (749 validation rows, fp16, length-sorted batches)"
+  },
+  "qwen_t4": {
+   "seconds_per_row_amortized": 0.22403204272363153,
+   "rows_per_second": 4.463647199046483,
+   "source": "docs/qwen_v3b_run_log.txt: eval_runtime 167.8 s for the 749 validation rows at epoch 2 (4-bit, fp16, batch 2, length-sorted)"
+  }
+ },
+ "modernbert_cpu": {
+  "n": 363,
+  "device": "arm CPU, torch 2.15.0, 4 threads, fp32, batch of 1",
+  "total_p50_s": 0.6793136669998603,
+  "total_p95_s": 2.2877790455001104,
+  "total_mean_s": 0.8648657027300242,
+  "total_max_s": 2.5860352079998847,
+  "forward_p50_s": 0.6764897079999628,
+  "forward_p95_s": 2.2758625786000266,
+  "format_plus_tokenize_mean_s": 0.004454510920108248,
+  "tokens_p50": 1863.0,
+  "tokens_p95": 3925.9999999999995,
+  "tokens_max": 4096,
+  "total_mean_s_shorter_half": 0.3076294459944987,
+  "total_mean_s_longer_half": 1.4251806128176796,
+  "max_diff_vs_saved_gpu_predictions": 0.006019949913024902,
+  "mean_diff_vs_saved": 0.0005077861434675925
+ }
+}

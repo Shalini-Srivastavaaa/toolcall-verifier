@@ -1,0 +1,7 @@
+# gitleaks configuration (D-032). The default rules apply; the allowlist below covers one known set of false positives.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "BFCL scenario data in the published synthetic test set: placeholder tokens and passwords of fictional accounts (access_token 'abc...', password 'str...')"
+paths = ['''release/test_set/test_synth\.jsonl''']

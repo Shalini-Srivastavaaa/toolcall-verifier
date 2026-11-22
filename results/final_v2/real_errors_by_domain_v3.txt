@@ -1,0 +1,44 @@
+
+final: 6231 training rows; real-origin errors 94 (natural 86, induced 8), real-origin correct rows 580
+   class                      airline   retail  telecom   real  synthetic/ext
+   1 wrong arg                      4        3        3     10            184
+   2 stale state                    0        0        0      0            609
+   3 wrong tool                     0        0        0      0             66
+   4 repeated call                  3        4       15     22            632
+   5 failure to propagate           2        6        0      8            206
+   6 ignored error                  0        0        0      0            490
+   7 policy violation              26       15       13     54            163
+   all real errors                 35       28       31     94
+   real correct rows              232      166      182    580
+
+final_v3a: 6374 training rows; real-origin errors 94 (natural 86, induced 8), real-origin correct rows 723
+   class                      airline   retail  telecom   real  synthetic/ext
+   1 wrong arg                      4        3        3     10            184
+   2 stale state                    0        0        0      0            609
+   3 wrong tool                     0        0        0      0             66
+   4 repeated call                  3        4       15     22            632
+   5 failure to propagate           2        6        0      8            206
+   6 ignored error                  0        0        0      0            490
+   7 policy violation              26       15       13     54            163
+   all real errors                 35       28       31     94
+   real correct rows              249      285      189    723
+
+final_v3b: 7154 training rows; real-origin errors 220 (natural 212, induced 8), real-origin correct rows 1377
+   class                      airline   retail  telecom   real  synthetic/ext
+   1 wrong arg                      4        7        8     19            184
+   2 stale state                    0        0        0      0            609
+   3 wrong tool                     0        0        0      0             66
+   4 repeated call                  3        6       64     73            632
+   5 failure to propagate           2        6        0      8            206
+   6 ignored error                  0        0        0      0            490
+   7 policy violation              26       28       66    120            163
+   all real errors                 35       47      138    220
+   real correct rows              249      420      708   1377
+
+CLASS 4 AND TELECOM, final -> final_v3b:
+   real Class 4 errors                     22 ->    73
+   real Class 4 errors in telecom          15 ->    64
+   real telecom errors, all classes        31 ->   138
+   real telecom correct rows              182 ->   708
+   real Class 7 errors                     54 ->   120
+   real Class 1 errors                     10 ->    19

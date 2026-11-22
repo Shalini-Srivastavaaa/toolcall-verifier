@@ -1,0 +1,133 @@
+====================================================================================================
+VERIFYING THE FIGURES GIVEN FOR THE RUN
+====================================================================================================
+all      n 363 (170 errors): AUROC 0.771 (95% CI 0.720-0.818); at 0.5 recall 0.49, false-flag 0.20   [final_v2: AUROC 0.732, false-flag 0.35]
+natural  n 269 ( 98 errors): AUROC 0.753 (95% CI 0.699-0.807); at 0.5 recall 0.40, false-flag 0.19   [final_v2: AUROC 0.715, false-flag 0.30]
+induced  n  94 ( 72 errors): AUROC 0.724 (95% CI 0.606-0.832); at 0.5 recall 0.62, false-flag 0.27   [final_v2: AUROC 0.650, false-flag 0.73]
+
+====================================================================================================
+1. PAIRED BOOTSTRAP OF AUROC DIFFERENCES: v3b minus the other (2,000 resamples of the rows of the subset, the same resample for both scores)
+====================================================================================================
+
+OVERALL: 363 rows, 170 errors, 193 correct
+   v3b              AUROC 0.771  (95% CI 0.720-0.818)
+   final_v2         AUROC 0.732  (95% CI 0.678-0.782)
+   gpt-5-mini       AUROC 0.719  (95% CI 0.666-0.770)
+   gpt-5-nano       AUROC 0.619  (95% CI 0.562-0.677)
+   length only      AUROC 0.675  (95% CI 0.620-0.730)
+   tool name only   AUROC 0.716  (95% CI 0.661-0.767)
+   v3b - final_v2      : +0.039  paired 95% CI -0.005 to +0.084; v3b better in 95.9% of resamples; two-sided p about 0.083   (interval includes 0)
+   v3b - gpt-5-mini    : +0.052  paired 95% CI -0.020 to +0.119; v3b better in 92.3% of resamples; two-sided p about 0.154   (interval includes 0)
+   v3b - gpt-5-nano    : +0.151  paired 95% CI +0.065 to +0.232; v3b better in 100.0% of resamples; two-sided p about 0.001   <- interval excludes 0
+   v3b - length only   : +0.096  paired 95% CI +0.038 to +0.151; v3b better in 100.0% of resamples; two-sided p about 0.001   <- interval excludes 0
+   v3b - tool name only: +0.055  paired 95% CI +0.001 to +0.108; v3b better in 98.0% of resamples; two-sided p about 0.039   <- interval excludes 0
+
+NATURAL rows: 269 rows, 98 errors, 171 correct
+   v3b              AUROC 0.753  (95% CI 0.699-0.807)
+   final_v2         AUROC 0.715  (95% CI 0.656-0.774)
+   gpt-5-mini       AUROC 0.695  (95% CI 0.620-0.760)
+   gpt-5-nano       AUROC 0.623  (95% CI 0.549-0.691)
+   length only      AUROC 0.626  (95% CI 0.556-0.693)
+   tool name only   AUROC 0.705  (95% CI 0.643-0.765)
+   v3b - final_v2      : +0.038  paired 95% CI -0.011 to +0.087; v3b better in 92.8% of resamples; two-sided p about 0.144   (interval includes 0)
+   v3b - gpt-5-mini    : +0.059  paired 95% CI -0.028 to +0.149; v3b better in 90.6% of resamples; two-sided p about 0.187   (interval includes 0)
+   v3b - gpt-5-nano    : +0.131  paired 95% CI +0.034 to +0.234; v3b better in 99.8% of resamples; two-sided p about 0.005   <- interval excludes 0
+   v3b - length only   : +0.128  paired 95% CI +0.057 to +0.201; v3b better in 100.0% of resamples; two-sided p about 0.000   <- interval excludes 0
+   v3b - tool name only: +0.049  paired 95% CI -0.016 to +0.111; v3b better in 93.6% of resamples; two-sided p about 0.128   (interval includes 0)
+
+INDUCED rows: 94 rows, 72 errors, 22 correct
+   v3b              AUROC 0.724  (95% CI 0.606-0.832)
+   final_v2         AUROC 0.650  (95% CI 0.516-0.773)
+   gpt-5-mini       AUROC 0.698  (95% CI 0.567-0.820)
+   gpt-5-nano       AUROC 0.586  (95% CI 0.449-0.728)
+   length only      AUROC 0.559  (95% CI 0.424-0.700)
+   tool name only   AUROC 0.579  (95% CI 0.440-0.718)
+   v3b - final_v2      : +0.074  paired 95% CI -0.035 to +0.203; v3b better in 89.8% of resamples; two-sided p about 0.204   (interval includes 0)
+   v3b - gpt-5-mini    : +0.026  paired 95% CI -0.112 to +0.170; v3b better in 65.5% of resamples; two-sided p about 0.690   (interval includes 0)
+   v3b - gpt-5-nano    : +0.138  paired 95% CI -0.045 to +0.304; v3b better in 93.5% of resamples; two-sided p about 0.130   (interval includes 0)
+   v3b - length only   : +0.165  paired 95% CI +0.024 to +0.305; v3b better in 99.2% of resamples; two-sided p about 0.016   <- interval excludes 0
+   v3b - tool name only: +0.146  paired 95% CI +0.005 to +0.297; v3b better in 97.8% of resamples; two-sided p about 0.044   <- interval excludes 0
+
+====================================================================================================
+2. OPERATING POINTS: recall at fixed false-alarm rates (thresholds from the correct rows of the subset)
+====================================================================================================
+subset                              FA | v3b recall (FA, thr) | mini recall (FA, thr) | final_v2
+overall                             5% |      0.229 (0.047, 0.895) |       0.100 (0.016, 0.910) |    0.029
+overall                            10% |      0.329 (0.098, 0.731) |       0.471 (0.093, 0.810) |    0.212
+overall                            20% |      0.512 (0.197, 0.497) |       0.594 (0.192, 0.280) |    0.412
+                                   0.5 | recall 0.494, false-flag 0.197 | recall 0.547, false-flag 0.145
+natural rows                        5% |      0.133 (0.041, 0.934) |       0.245 (0.047, 0.890) |    0.051
+natural rows                       10% |      0.286 (0.099, 0.686) |       0.510 (0.099, 0.790) |    0.153
+natural rows                       20% |      0.480 (0.199, 0.430) |       0.602 (0.193, 0.230) |    0.316
+                                   0.5 | recall 0.398, false-flag 0.187 | recall 0.531, false-flag 0.135
+
+per class (errors of the class against ALL correct rows; recall at the 10% false-alarm threshold of the correct rows, at 0.5, and AUROC; v3b | gpt-5-mini | final_v2):
+   class                        n | AUROC v3b   mini     v2 | rec@10%FA v3b   mini     v2 | rec@0.5 v3b   mini     v2
+   1 wrong arg                 30 |     0.724  0.823  0.659 |         0.233  0.633  0.133 |       0.433  0.767  0.567
+   2 stale state                4 |     0.861  0.979  0.759 |         0.000  1.000  0.000 |       1.000  1.000  1.000
+   3 wrong tool                18 |     0.754  0.732  0.718 |         0.333  0.667  0.222 |       0.444  0.667  0.611
+   4 repeated call             19 |     0.802  0.789  0.617 |         0.474  0.526  0.000 |       0.632  0.632  0.263
+   5 failure to propagate      20 |     0.756  0.769  0.756 |         0.400  0.450  0.200 |       0.400  0.550  0.750
+   6 ignored error             16 |     0.780  0.773  0.820 |         0.375  0.438  0.375 |       0.500  0.500  0.938
+   7 policy violation          63 |     0.785  0.598  0.773 |         0.317  0.302  0.286 |       0.492  0.365  0.794
+
+====================================================================================================
+3. THE CLASS 7 DROP
+====================================================================================================
+Class 7 vs correct, all      rows, all rows                         (63 errors, 193 correct):
+     final_v2 AUROC 0.773 recall@0.5 0.79 (false-flag 0.35) recall@10%FA 0.29 @20% 0.51
+     v3b AUROC 0.785 recall@0.5 0.49 (false-flag 0.20) recall@10%FA 0.32 @20% 0.52
+     mini AUROC 0.598 recall@0.5 0.37 (false-flag 0.15) recall@10%FA 0.30 @20% 0.43
+Class 7 vs correct, natural  rows, all rows                         (45 errors, 171 correct):
+     final_v2 AUROC 0.780 recall@0.5 0.78 (false-flag 0.30) recall@10%FA 0.27 @20% 0.47
+     v3b AUROC 0.777 recall@0.5 0.40 (false-flag 0.19) recall@10%FA 0.29 @20% 0.53
+     mini AUROC 0.590 recall@0.5 0.38 (false-flag 0.13) recall@10%FA 0.38 @20% 0.49
+Class 7 vs correct, all      rows, without cancel_reservation rows  (58 errors, 179 correct):
+     final_v2 AUROC 0.815 recall@0.5 0.78 (false-flag 0.30) recall@10%FA 0.40 @20% 0.50
+     v3b AUROC 0.789 recall@0.5 0.45 (false-flag 0.18) recall@10%FA 0.36 @20% 0.50
+     mini AUROC 0.612 recall@0.5 0.40 (false-flag 0.15) recall@10%FA 0.33 @20% 0.45
+Class 7 vs correct, natural  rows, without cancel_reservation rows  (40 errors, 157 correct):
+     final_v2 AUROC 0.823 recall@0.5 0.75 (false-flag 0.24) recall@10%FA 0.38 @20% 0.68
+     v3b AUROC 0.777 recall@0.5 0.33 (false-flag 0.17) recall@10%FA 0.25 @20% 0.47
+     mini AUROC 0.607 recall@0.5 0.42 (false-flag 0.13) recall@10%FA 0.38 @20% 0.53
+
+Class 7 test errors by tool: {'update_reservation_flights': 11, 'modify_pending_order_items': 7, 'return_delivered_order_items': 7, 'refuel_data': 6, 'resume_line': 5, 'cancel_reservation': 5, 'exchange_delivered_order_items': 5, 'modify_pending_order_address': 4}
+   final_v2: recall at 0.5 on Class 7 errors: cancel_reservation 1.00 (5 rows), all other tools 0.78 (58); median score 0.99 and 0.63
+        correct cancel_reservation rows (14): median score 0.99, share at or above 0.5 1.00, at or above 0.9 1.00
+   v3b: recall at 0.5 on Class 7 errors: cancel_reservation 1.00 (5 rows), all other tools 0.45 (58); median score 0.95 and 0.48
+        correct cancel_reservation rows (14): median score 0.17, share at or above 0.5 0.36, at or above 0.9 0.36
+
+Class 7 by domain (errors vs the correct rows of the domain): AUROC and recall at 0.5, final_v2 -> v3b; real Class 7 training errors in the domain, v2 data -> v3b data
+   airline   22 errors: AUROC 0.773 -> 0.812; recall@0.5 0.95 -> 0.64; real Class 7 training errors 26 -> 26
+   retail    25 errors: AUROC 0.767 -> 0.826; recall@0.5 0.84 -> 0.52; real Class 7 training errors 15 -> 28
+   telecom   16 errors: AUROC 0.747 -> 0.708; recall@0.5 0.50 -> 0.25; real Class 7 training errors 13 -> 66
+
+the real Class 7 labels that were added (v3b data, not in v2 data): [(('telecom', 'unlabeled'), 53), (('retail', 'unlabeled'), 6), (('retail', 'parallel_write'), 4), (('retail', 'ineligible_state'), 2), (('retail', 'no_confirmation'), 1)]
+
+====================================================================================================
+4. CORRECT rows scored at or above 0.9 by v3b
+====================================================================================================
+9 of 193 correct rows (final_v2: 14); at or above 0.7: 20 (final_v2 23)
+   by origin                : natural: 9 of 171
+   by domain                : airline: 6 of 63; telecom: 3 of 36
+   by source                : human_labeled_phase4: 9 of 77
+   by found_in              : test_real: 9 of 77
+   by candidate tool        : cancel_reservation: 5 of 14; get_details_by_id: 2 of 14; update_reservation_flights: 1 of 2; get_data_usage: 1 of 2
+   by read-only call        : False: 6 of 79; True: 3 of 114
+   by JSON-style agent text : False: 9 of 173
+   turns of history: median 10 (those rows) against 18 (all correct rows); gpt-5-mini median score on them 0.18
+   cancel_reservation correct   (14 rows): v3b median 0.17, share >= 0.9 0.36
+   cancel_reservation incorrect (6 rows): v3b median 0.97, share >= 0.9 0.67
+
+====================================================================================================
+TABLE FOR THE README: AUROC (95% bootstrap CI, 2,000 resamples) overall / natural / induced, recall at 5% and 10% false alarms (overall rows), recall and false-flag at 0.5
+====================================================================================================
+| ModernBERT v3b       | 0.771 (0.720-0.818) | 0.753 (0.699-0.807) | 0.724 (0.606-0.832) | 0.229 | 0.329 | 0.494 / 0.197 |
+| ModernBERT final_v2  | 0.732 (0.678-0.782) | 0.715 (0.656-0.774) | 0.650 (0.516-0.773) | 0.029 | 0.212 | 0.688 / 0.347 |
+| gpt-5-mini           | 0.719 (0.666-0.770) | 0.695 (0.620-0.760) | 0.698 (0.567-0.820) | 0.100 | 0.471 | 0.547 / 0.145 |
+| gpt-5-nano           | 0.619 (0.562-0.677) | 0.623 (0.549-0.691) | 0.586 (0.449-0.728) | 0.112 | 0.229 | 0.435 / 0.218 |
+| length only          | 0.675 (0.620-0.730) | 0.626 (0.556-0.693) | 0.559 (0.424-0.700) | 0.212 | 0.329 | 0.094 / 0.021 |
+| tool name only       | 0.716 (0.661-0.767) | 0.705 (0.643-0.765) | 0.579 (0.440-0.718) | 0.076 | 0.135 | 0.335 / 0.155 |
+natural rows only, recall at 5% / 10% false alarms: v3b 0.133 / 0.286; final_v2 0.051 / 0.153; gpt-5-mini 0.245 / 0.510; gpt-5-nano 0.143 / 0.265
+induced correct rows flagged at 0.5: final_v2 16/22, v3b 6/22 (v2 flags and v3b does not: 10; the reverse: 0)
+cancel_reservation rows (14 correct, 6 errors): AUROC within the tool: final_v2 0.571, v3b 0.714, gpt-5-mini 0.482

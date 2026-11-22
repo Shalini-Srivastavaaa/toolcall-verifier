@@ -1,0 +1,118 @@
+====================================================================================================
+0. THE FIGURES YOU GAVE, FROM THE PREDICTIONS
+====================================================================================================
+OVERALL       n 363 (170 errors): Qwen AUROC 0.765 (95% CI 0.714-0.814, 2,000 resamples; the report's 1,000-resample CI is 0.717-0.814); at 0.5 recall 0.429, false-flag 0.187
+NATURAL rows  n 269 ( 98 errors): Qwen AUROC 0.803 (95% CI 0.753-0.853, 2,000 resamples); at 0.5 recall 0.469, false-flag 0.170
+INDUCED rows  n  94 ( 72 errors): Qwen AUROC 0.533 (95% CI 0.370-0.691, 2,000 resamples); at 0.5 recall 0.375, false-flag 0.318
+
+====================================================================================================
+1a. PAIRED BOOTSTRAP OF AUROC DIFFERENCES: Qwen minus the other
+====================================================================================================
+
+OVERALL: 363 rows, 170 errors, 193 correct
+   ModernBERT v3b   AUROC 0.771  (95% CI 0.720-0.818)
+   Qwen2.5-1.5B     AUROC 0.765  (95% CI 0.714-0.814)
+   GPT-5-mini       AUROC 0.719  (95% CI 0.666-0.770)
+   GPT-5-nano       AUROC 0.619  (95% CI 0.562-0.677)
+   length only      AUROC 0.675  (95% CI 0.620-0.730)
+   tool name only   AUROC 0.716  (95% CI 0.661-0.767)
+   Qwen - ModernBERT v3b             : -0.006  paired 95% CI -0.052 to +0.037; first better in 39.4% of resamples; two-sided p about 0.787   (interval includes 0)
+   Qwen - GPT-5-mini                 : +0.046  paired 95% CI -0.026 to +0.111; first better in 89.1% of resamples; two-sided p about 0.217   (interval includes 0)
+   Qwen - GPT-5-nano                 : +0.146  paired 95% CI +0.057 to +0.228; first better in 100.0% of resamples; two-sided p about 0.000   <- interval excludes 0
+   Qwen - length only                : +0.090  paired 95% CI +0.025 to +0.152; first better in 99.6% of resamples; two-sided p about 0.009   <- interval excludes 0
+   Qwen - tool name only             : +0.049  paired 95% CI -0.007 to +0.100; first better in 96.0% of resamples; two-sided p about 0.081   (interval includes 0)
+
+NATURAL rows: 269 rows, 98 errors, 171 correct
+   ModernBERT v3b   AUROC 0.753  (95% CI 0.699-0.807)
+   Qwen2.5-1.5B     AUROC 0.803  (95% CI 0.753-0.853)
+   GPT-5-mini       AUROC 0.695  (95% CI 0.620-0.760)
+   GPT-5-nano       AUROC 0.623  (95% CI 0.549-0.691)
+   length only      AUROC 0.626  (95% CI 0.556-0.693)
+   tool name only   AUROC 0.705  (95% CI 0.643-0.765)
+   Qwen - ModernBERT v3b             : +0.049  paired 95% CI +0.005 to +0.095; first better in 98.3% of resamples; two-sided p about 0.034   <- interval excludes 0
+   Qwen - GPT-5-mini                 : +0.108  paired 95% CI +0.027 to +0.192; first better in 99.7% of resamples; two-sided p about 0.007   <- interval excludes 0
+   Qwen - GPT-5-nano                 : +0.180  paired 95% CI +0.086 to +0.277; first better in 100.0% of resamples; two-sided p about 0.001   <- interval excludes 0
+   Qwen - length only                : +0.177  paired 95% CI +0.105 to +0.252; first better in 100.0% of resamples; two-sided p about 0.000   <- interval excludes 0
+   Qwen - tool name only             : +0.098  paired 95% CI +0.034 to +0.163; first better in 100.0% of resamples; two-sided p about 0.001   <- interval excludes 0
+
+INDUCED rows: 94 rows, 72 errors, 22 correct
+   ModernBERT v3b   AUROC 0.724  (95% CI 0.606-0.832)
+   Qwen2.5-1.5B     AUROC 0.533  (95% CI 0.370-0.691)
+   GPT-5-mini       AUROC 0.698  (95% CI 0.567-0.820)
+   GPT-5-nano       AUROC 0.586  (95% CI 0.449-0.728)
+   length only      AUROC 0.559  (95% CI 0.424-0.700)
+   tool name only   AUROC 0.579  (95% CI 0.440-0.718)
+   Qwen - ModernBERT v3b             : -0.191  paired 95% CI -0.367 to -0.013; first better in 1.8% of resamples; two-sided p about 0.035   <- interval excludes 0
+   Qwen - GPT-5-mini                 : -0.165  paired 95% CI -0.334 to -0.001; first better in 2.5% of resamples; two-sided p about 0.049   <- interval excludes 0
+   Qwen - GPT-5-nano                 : -0.054  paired 95% CI -0.288 to +0.175; first better in 30.1% of resamples; two-sided p about 0.603   (interval includes 0)
+   Qwen - length only                : -0.027  paired 95% CI -0.237 to +0.173; first better in 38.8% of resamples; two-sided p about 0.775   (interval includes 0)
+   Qwen - tool name only             : -0.046  paired 95% CI -0.254 to +0.167; first better in 30.8% of resamples; two-sided p about 0.616   (interval includes 0)
+
+====================================================================================================
+1b. OPERATING POINTS: recall at fixed false-alarm rates (thresholds from the correct rows of the subset), and at 0.5
+====================================================================================================
+subset           FA | ModernBERT v3b |   Qwen2.5-1.5B |     GPT-5-mini |     GPT-5-nano |    length only | tool name only
+OVERALL          5% |          0.229 |          0.106 |          0.100 |          0.112 |          0.212 |          0.076
+OVERALL         10% |          0.329 |          0.218 |          0.471 |          0.229 |          0.329 |          0.135
+OVERALL         0.5 |  0.494/0.197    |  0.429/0.187    |  0.547/0.145    |  0.435/0.218    |  0.094/0.021    |  0.335/0.155      (recall / false-flag)
+NATURAL rows     5% |          0.133 |          0.204 |          0.245 |          0.143 |          0.204 |          0.051
+NATURAL rows    10% |          0.286 |          0.276 |          0.510 |          0.265 |          0.265 |          0.071
+NATURAL rows    0.5 |  0.398/0.187    |  0.469/0.170    |  0.531/0.135    |  0.429/0.205    |  0.092/0.018    |  0.327/0.152      (recall / false-flag)
+
+====================================================================================================
+1c. PER CLASS: errors of the class against ALL correct rows of the test set (AUROC; recall at the 5% and 10% false-alarm thresholds of those correct rows; recall at 0.5)
+====================================================================================================
+   class                    n err natural | ModernBERT v AUROC  r@5  r@10  r@.5 | Qwen2.5-1.5B AUROC  r@5  r@10  r@.5 |   GPT-5-mini AUROC  r@5  r@10  r@.5 |   GPT-5-nano AUROC  r@5  r@10  r@.5
+   1 wrong arg                 30      21 |              0.724  0.23  0.23  0.43 |              0.709  0.00  0.03  0.27 |              0.823  0.10  0.63  0.77 |              0.658  0.20  0.33  0.53
+   2 stale state                4       0 |              0.861  0.00  0.00  1.00 |              0.856  0.00  0.25  0.75 |              0.979  0.50  1.00  1.00 |              0.845  0.50  0.75  0.75
+   3 wrong tool                18      14 |              0.754  0.17  0.33  0.44 |              0.754  0.11  0.28  0.39 |              0.732  0.22  0.67  0.67 |              0.730  0.28  0.39  0.67
+   4 repeated call             19      16 |              0.802  0.42  0.47  0.63 |              0.893  0.58  0.79  0.79 |              0.789  0.11  0.53  0.63 |              0.597  0.05  0.21  0.37
+   5 failure to propagate      20       1 |              0.756  0.25  0.40  0.40 |              0.787  0.20  0.30  0.50 |              0.769  0.05  0.45  0.55 |              0.661  0.05  0.15  0.50
+   6 ignored error             16       1 |              0.780  0.25  0.38  0.50 |              0.724  0.00  0.00  0.31 |              0.773  0.12  0.44  0.50 |              0.572  0.00  0.06  0.25
+   7 policy violation          63      45 |              0.785  0.19  0.32  0.49 |              0.753  0.02  0.14  0.40 |              0.598  0.05  0.30  0.37 |              0.560  0.06  0.16  0.35
+   (classes 2 and 6: mostly induced; class 2 has 4 test errors: recall and AUROC there are not readable)
+
+   paired difference of the per-class AUROC, Qwen - ModernBERT v3b (resampling the rows of the class and the correct rows together):
+   class 1 wrong arg (n=30)          : -0.016  paired 95% CI -0.086 to +0.050; first better in 32.2% of resamples; two-sided p about 0.645   (interval includes 0)
+   class 2 stale state (n=4)         : -0.005  paired 95% CI -0.075 to +0.066; first better in 42.4% of resamples; two-sided p about 0.849   (interval includes 0)
+   class 3 wrong tool (n=18)         : +0.001  paired 95% CI -0.111 to +0.106; first better in 51.2% of resamples; two-sided p about 0.976   (interval includes 0)
+   class 4 repeated call (n=19)      : +0.091  paired 95% CI -0.030 to +0.208; first better in 93.1% of resamples; two-sided p about 0.138   (interval includes 0)
+   class 5 failure to propagate (n=20): +0.031  paired 95% CI -0.074 to +0.152; first better in 73.0% of resamples; two-sided p about 0.539   (interval includes 0)
+   class 6 ignored error (n=16)      : -0.056  paired 95% CI -0.137 to +0.031; first better in 9.1% of resamples; two-sided p about 0.182   (interval includes 0)
+   class 7 policy violation (n=63)   : -0.031  paired 95% CI -0.089 to +0.028; first better in 14.8% of resamples; two-sided p about 0.296   (interval includes 0)
+
+   natural rows only, per class (errors of the class against the natural correct rows): recall at 0.5, Qwen | ModernBERT v3b | GPT-5-mini
+   1 wrong arg               21 errors | 0.14 (3/21) | 0.24 (5/21) | 0.76 (16/21)
+   3 wrong tool              14 errors | 0.43 (6/14) | 0.36 (5/14) | 0.64 (9/14)
+   4 repeated call           16 errors | 0.88 (14/16) | 0.62 (10/16) | 0.56 (9/16)
+   5 failure to propagate     1 errors | 0.00 (0/1) | 1.00 (1/1) | 1.00 (1/1)
+   6 ignored error            1 errors | 0.00 (0/1) | 0.00 (0/1) | 0.00 (0/1)
+   7 policy violation        45 errors | 0.51 (23/45) | 0.40 (18/45) | 0.38 (17/45)
+
+====================================================================================================
+1d. PER DOMAIN: AUROC (95% CI), recall at 5% and 10% false alarms (thresholds from the correct rows of the domain), recall / false-flag at 0.5
+====================================================================================================
+
+airline: 116 rows, 53 errors, 63 correct
+   ModernBERT v3b   AUROC 0.783 (0.699-0.861)  recall@5%FA 0.132  @10%FA 0.434  at 0.5: recall 0.642, false-flag 0.222
+   Qwen2.5-1.5B     AUROC 0.708 (0.612-0.803)  recall@5%FA 0.038  @10%FA 0.094  at 0.5: recall 0.453, false-flag 0.270
+   GPT-5-mini       AUROC 0.699 (0.600-0.793)  recall@5%FA 0.075  @10%FA 0.245  at 0.5: recall 0.547, false-flag 0.175
+   GPT-5-nano       AUROC 0.546 (0.446-0.644)  recall@5%FA 0.075  @10%FA 0.132  at 0.5: recall 0.358, false-flag 0.222
+   Qwen - ModernBERT v3b             : -0.075  paired 95% CI -0.161 to +0.000; first better in 2.5% of resamples; two-sided p about 0.051   (interval includes 0)
+   Qwen - GPT-5-mini                 : +0.008  paired 95% CI -0.117 to +0.136; first better in 54.4% of resamples; two-sided p about 0.912   (interval includes 0)
+
+retail: 166 rows, 72 errors, 94 correct
+   ModernBERT v3b   AUROC 0.763 (0.690-0.834)  recall@5%FA 0.097  @10%FA 0.361  at 0.5: recall 0.417, false-flag 0.170
+   Qwen2.5-1.5B     AUROC 0.780 (0.711-0.851)  recall@5%FA 0.097  @10%FA 0.222  at 0.5: recall 0.389, false-flag 0.138
+   GPT-5-mini       AUROC 0.710 (0.623-0.790)  recall@5%FA 0.417  @10%FA 0.444  at 0.5: recall 0.431, false-flag 0.085
+   GPT-5-nano       AUROC 0.644 (0.554-0.729)  recall@5%FA 0.167  @10%FA 0.292  at 0.5: recall 0.444, false-flag 0.191
+   Qwen - ModernBERT v3b             : +0.017  paired 95% CI -0.053 to +0.088; first better in 68.0% of resamples; two-sided p about 0.639   (interval includes 0)
+   Qwen - GPT-5-mini                 : +0.070  paired 95% CI -0.033 to +0.176; first better in 90.8% of resamples; two-sided p about 0.183   (interval includes 0)
+
+telecom: 81 rows, 45 errors, 36 correct
+   ModernBERT v3b   AUROC 0.771 (0.654-0.872)  recall@5%FA 0.244  @10%FA 0.289  at 0.5: recall 0.444, false-flag 0.222
+   Qwen2.5-1.5B     AUROC 0.828 (0.724-0.914)  recall@5%FA 0.267  @10%FA 0.400  at 0.5: recall 0.467, false-flag 0.167
+   GPT-5-mini       AUROC 0.734 (0.616-0.847)  recall@5%FA 0.089  @10%FA 0.089  at 0.5: recall 0.733, false-flag 0.250
+   GPT-5-nano       AUROC 0.635 (0.514-0.758)  recall@5%FA 0.022  @10%FA 0.133  at 0.5: recall 0.511, false-flag 0.278
+   Qwen - ModernBERT v3b             : +0.057  paired 95% CI -0.015 to +0.133; first better in 94.0% of resamples; two-sided p about 0.120   (interval includes 0)
+   Qwen - GPT-5-mini                 : +0.095  paired 95% CI -0.053 to +0.246; first better in 88.9% of resamples; two-sided p about 0.221   (interval includes 0)

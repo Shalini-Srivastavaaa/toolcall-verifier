@@ -1,0 +1,89 @@
+evaluation report | environment kaggle | checkpoint /kaggle/working/checkpoints/phase5_v2/best | 2026-11-21 15:12:28
+evaluating on cuda 
+=== overall on the final test set (n=363, 170 incorrect), threshold 0.5 ===
+accuracy 0.658  precision 0.689  recall 0.494  F1 0.575
+AUROC 0.771  95% CI 0.720-0.820  (1,000 bootstrap resamples, seed 0)
+AUROC without Class 7 0.762  95% CI 0.710-0.811  (n=300, 107 incorrect)
+(always predicting 'correct' would score accuracy 0.532)
+
+=== recall per error class (incorrect rows only) ===
+  class 1: recall 0.43  (n=30)
+  class 2: recall 1.00  (n=4)
+  class 3: recall 0.44  (n=18)
+  class 4: recall 0.63  (n=19)
+  class 5: recall 0.40  (n=20)
+  class 6: recall 0.50  (n=16)
+  class 7: recall 0.49  (n=63)
+
+=== per domain ===
+  retail   n=166 (incorrect=72)  accuracy 0.651  F1 0.508
+  airline  n=116 (incorrect=53)  accuracy 0.716  F1 0.673
+  telecom  n= 81 (incorrect=45)  accuracy 0.593  F1 0.548
+
+=== confusion matrix (rows = truth, columns = prediction) ===
+                   pred correct   pred incorrect
+  true correct              155               38
+  true incorrect             86               84
+
+=== threshold sweep ===
+  thresh      F1   precision  recall  false-flag rate
+    0.3     0.640      0.658   0.624           0.285
+    0.5     0.575      0.689   0.494           0.197
+    0.7     0.486      0.753   0.359           0.104
+
+=== REAL TEST SET (human-reviewed): 363 rows, 170 incorrect ===
+AUROC 0.771  95% CI 0.720-0.820  (1,000 bootstrap resamples, seed 0)
+at threshold 0.5: precision 0.689  recall 0.494  F1 0.575  false-flag rate 0.197
+recall at 5% false-alarm rate: 0.229 (threshold 0.895)
+recall at 10% false-alarm rate: 0.329 (threshold 0.731)
+baselines on the same rows (trained on the training split): length only AUROC 0.675, source only AUROC 0.578
+
+recall per error class by origin (threshold 0.5; a cell with fewer than 10 examples is not shown as a rate)
+  class 1: induced: too few to read (8/9) | natural: recall 0.24 (5/21)
+  class 2: induced: too few to read (4/4) | natural: too few to read (0/0)
+  class 3: induced: too few to read (3/4) | natural: recall 0.36 (5/14)
+  class 4: induced: too few to read (2/3) | natural: recall 0.62 (10/16)
+  class 5: induced: recall 0.37 (7/19) | natural: too few to read (1/1)
+  class 6: induced: recall 0.53 (8/15) | natural: too few to read (0/1)
+  class 7: induced: recall 0.72 (13/18) | natural: recall 0.40 (18/45)
+
+CLASS 7 (policy violation) RECALL, threshold 0.5: recall 0.49 (31/63)   <- the number to quote
+  Class 7 recall by sub-reason (heuristic tags, approximate; a cell with fewer than 10 examples is not shown as a rate):
+    reason confirmed by a human:
+      ineligible_state     too few to read (1/1)
+    heuristic tags, approximate:
+      no_confirmation      too few to read (4/7)
+      ineligible_state     recall 0.61 (11/18)
+      missing_step         too few to read (2/4)
+      parallel_write       too few to read (3/3)
+      unlabeled            recall 0.33 (10/30)
+
+per domain
+  airline  n  116 (incorrect  53, correct  63)  AUROC 0.783  recall 0.64  false-flag 0.22
+  retail   n  166 (incorrect  72, correct  94)  AUROC 0.763  recall 0.42  false-flag 0.17
+  telecom  n   81 (incorrect  45, correct  36)  AUROC 0.771  recall 0.44  false-flag 0.22
+
+------------------------------------------------------------------------------
+SYNTHETIC TEST SET (held-out synthetic Classes 2 and 6 with their paired correct examples; NOT real errors)
+------------------------------------------------------------------------------
+
+=== SYNTHETIC held-out test: 374 rows, 187 incorrect ===
+AUROC 0.756  95% CI 0.709-0.803  (1,000 bootstrap resamples, seed 0)
+at threshold 0.5: precision 0.616  recall 0.807  F1 0.699  false-flag rate 0.503
+recall at 5% false-alarm rate: 0.316 (threshold 0.582)
+recall at 10% false-alarm rate: 0.406 (threshold 0.560)
+baselines on the same rows (trained on the training split): length only AUROC 0.500, source only AUROC 0.500
+  synthetic class 2: recall 0.75 (109/145)
+  synthetic class 6: recall 1.00 (42/42)
+
+saved /kaggle/working/checkpoints/phase5_v2/test_predictions.jsonl and /kaggle/working/checkpoints/phase5_v2/test_synth_predictions.jsonl
+saved /kaggle/working/checkpoints/phase5_v2/val_predictions.jsonl (validation AUROC of this model 0.927)
+
+validation AUROC by source group (errors and their correct rows of the group; the AUROC of a group is not defined without both labels):
+   BFCL                                         rows  398 (incorrect 131, correct 267)  AUROC 0.913  95% CI 0.877-0.946
+   CriticTool                                   rows  148 (incorrect  74, correct  74)  AUROC 0.983  95% CI 0.962-0.997
+   real-origin: induced                         rows    4 (incorrect   3, correct   1)  AUROC 1.000  95% CI 1.000-1.000
+   real-origin: natural                         rows   88 (incorrect  17, correct  71)  AUROC 0.960  95% CI 0.894-0.999
+   tau2 domains: synthetic, state flips, gold   rows  111 (incorrect  56, correct  55)  AUROC 0.688  95% CI 0.588-0.774
+REAL-ORIGIN VALIDATION AUROC: 0.962  95% CI 0.904-0.999  (92 rows, 20 errors; few rows, so the interval is wide)
+report written to /kaggle/working/eval_report.txt

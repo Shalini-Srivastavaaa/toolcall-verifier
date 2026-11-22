@@ -1,0 +1,53 @@
+PERSONAL DATA CHECK of release/test_set (scripts/build_test_set_release.py). Values are masked (first 2 and last 2 characters).
+
+== test (363 rows, tau2-bench): 363 rows ==
+  email              584 occurrences,   55 distinct; NOT found in the tau2-bench records: 1 occurrences, 1 distinct
+      yo…********om (x1)
+  phone                0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  card-like            0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  ssn-like             0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  iban                 0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  street address    1036 occurrences,   75 distinct; NOT found in the tau2-bench records: 1 occurrences, 1 distinct
+      12…********et (x1)
+  date of birth     1105 occurrences,   83 distinct; NOT found in the tau2-bench records: 12 occurrences, 4 distinct
+      19…******01 (x5), 20…******15 (x3), 20…******22 (x2), 19…******15 (x2)
+  name-like pair    4664 occurrences,  222 distinct; NOT found in the tau2-bench records: 84 occurrences, 40 distinct
+      Preferred Network (x12), Galaxy Tab (x5), Belmont Ave (x4), Color Navy (x4), Full Zipper (x4), Space Grey (x4), Gift Cards (x3), Economy Class (x3), Half Zipper (x3), Ensure Mobile (x3), With Data (x2), Not Taken (x2), Robert Frost (x2), Robotic Vacuum (x2), Replace Backpack (x2), Color Red (x2), Open Settings (x2), Tea Kettles (x2), Ensure Airplane (x2), Other
+
+Please (x1), Mountain Interval (x1), Travel Certificates (x1), Two Vacuum (x1), Total Gift (x1), Card Balance (x1), Total Certificate (x1), Shirt Options (x1), Current Economy (x1), Alternative Option (x1), Mastercard  
+
+Please (x1), Swap Backpack (x1), Flight Option (x1), Color Black (x1), Skateboard Cancellation (x1), Central Park (x1), Tap Permissions (x1), John Doe (x1), Pro Cruiser (x1), Ensure Data (x1), Regarding Ivan (x1)
+
+== test_synth, tau2-bench rows: 176 rows ==
+  email              218 occurrences,    9 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  phone                0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  card-like            0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  ssn-like             0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  iban                 0 occurrences,    0 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  street address     386 occurrences,    9 distinct; NOT found in the tau2-bench records: 0 occurrences, 0 distinct
+  date of birth      542 occurrences,   16 distinct; NOT found in the tau2-bench records: 4 occurrences, 1 distinct
+      19…******01 (x4)
+  name-like pair    3158 occurrences,   96 distinct; NOT found in the tau2-bench records: 60 occurrences, 12 distinct
+      Preferred Network (x34), Delivered
+
+Since (x4), Trip Type (x4), Delivered
+
+Would (x2), Booking Details (x2), Cabin Class (x2), Total Baggage (x2), Total Cost (x2), Total Amount (x2), Backpack
+Reason (x2), Switch Type (x2), Bookshelf
+
+Based (x2)
+
+== test_synth, BFCL rows: 198 rows ==   (no reference records for BFCL: all hits are listed)
+  email                0 occurrences,    0 distinct
+  phone                0 occurrences,    0 distinct
+  card-like            8 occurrences,    1 distinct
+      23…********78 (x8)
+  ssn-like             0 occurrences,    0 distinct
+  iban                 0 occurrences,    0 distinct
+  street address       0 occurrences,    0 distinct
+  date of birth       10 occurrences,    2 distinct
+      19…******23 (x8), 19…******14 (x2)
+  name-like pair     190 occurrences,   23 distinct
+      San Francisco (x34), Zeta Corp (x32), Los Angeles (x28), New York (x14), Omega Industries (x12), Maxwell Edison (x12), International Airport (x8), Matt Bradley (x8), Elizabeth Montgomery (x6), Chinese Yuan (x6), Edison
+Actually (x4), Quarterly Financial (x4), Lara Croft (x2), Crescent Hollow (x2), After Bob (x2), Transaction Issue (x2), Flight Cancellation (x2), Invoice Discrepancy (x2), John Levy (x2), Latest Quarter (x2), Theodore Collins (x2), Thursday October (x2), Before Simona (x2)
+

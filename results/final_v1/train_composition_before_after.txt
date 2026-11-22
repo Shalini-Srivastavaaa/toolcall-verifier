@@ -1,0 +1,58 @@
+====================================================================================================
+BEFORE (final_v1 data): /private/tmp/claude-501/-Users-user-Projects-toolcall-verifier/1514e48c-5aea-4f89-9a24-847e357b2664/scratchpad/final_before
+====================================================================================================
+
+train: 5569 rows = 2366 errors + 3203 correct
+   class                     real natural  real induced  synthetic/ext   total   real share
+   1 wrong arg                          6             0            183     189     3.2%
+   2 stale state                        0             0            613     613     0.0%
+   3 wrong tool                         0             0             64      64     0.0%
+   4 repeated call                      0             0            644     644     0.0%
+   5 failure to propagate               0             0            197     197     0.0%
+   6 ignored error                      0             0            489     489     0.0%
+   7 policy violation                  10             0            160     170     5.9%
+   ALL ERRORS                          16             0           2350    2366     0.7%
+   correct rows by kind: BFCL synthetic 664, CriticTool 363, gold (successful runs) 1565, tau2 synthetic 611  | real-origin correct 0
+   real-origin rows (errors + their correct rows): 16 of 5569 (0.3%)
+
+validation: 679 rows = 277 errors + 402 correct
+   class                     real natural  real induced  synthetic/ext   total   real share
+   1 wrong arg                          2             0             21      23     8.7%
+   2 stale state                        0             0             46      46     0.0%
+   3 wrong tool                         0             0             10      10     0.0%
+   4 repeated call                      0             0             71      71     0.0%
+   5 failure to propagate               0             0             22      22     0.0%
+   6 ignored error                      0             0             80      80     0.0%
+   7 policy violation                  13             0             12      25    52.0%
+   ALL ERRORS                          15             0            262     277     5.4%
+   correct rows by kind: BFCL synthetic 71, CriticTool 76, gold (successful runs) 225, tau2 synthetic 30  | real-origin correct 0
+   real-origin rows (errors + their correct rows): 15 of 679 (2.2%)
+====================================================================================================
+AFTER (D-026): /home/user/Projects/toolcall-verifier/data/derived/final
+====================================================================================================
+
+train: 6231 rows = 2444 errors + 3787 correct
+   class                     real natural  real induced  synthetic/ext   total   real share
+   1 wrong arg                         10             0            184     194     5.2%
+   2 stale state                        0             0            609     609     0.0%
+   3 wrong tool                         0             0             66      66     0.0%
+   4 repeated call                     22             0            632     654     3.4%
+   5 failure to propagate               0             8            206     214     3.7%
+   6 ignored error                      0             0            490     490     0.0%
+   7 policy violation                  54             0            163     217    24.9%
+   ALL ERRORS                          86             8           2350    2444     3.8%
+   correct rows by kind: BFCL synthetic 644, CriticTool 365, gold (successful runs) 1580, real: induced 5, real: natural 575, tau2 synthetic 618  | real-origin correct 580
+   real-origin rows (errors + their correct rows): 674 of 6231 (10.8%)
+
+validation: 749 rows = 281 errors + 468 correct
+   class                     real natural  real induced  synthetic/ext   total   real share
+   1 wrong arg                          2             0             19      21     9.5%
+   2 stale state                        0             0             50      50     0.0%
+   3 wrong tool                         0             0              8       8     0.0%
+   4 repeated call                      4             0             83      87     4.6%
+   5 failure to propagate               0             3             13      16    18.8%
+   6 ignored error                      0             0             79      79     0.0%
+   7 policy violation                  11             0              9      20    55.0%
+   ALL ERRORS                          17             3            261     281     7.1%
+   correct rows by kind: BFCL synthetic 91, CriticTool 74, gold (successful runs) 208, real: induced 1, real: natural 71, tau2 synthetic 23  | real-origin correct 72
+   real-origin rows (errors + their correct rows): 92 of 749 (12.3%)

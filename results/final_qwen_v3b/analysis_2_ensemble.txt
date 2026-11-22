@@ -1,0 +1,52 @@
+****************************************************************************************************
+EXPLORATORY. The ensemble was proposed AFTER seeing the test results of both models (D-030). It has no weights and no threshold fitted on the test set
+(the plain average of the two probabilities; the average of the two rank positions over the 363 test rows, which uses no labels), but the idea itself comes from looking at the test
+numbers, two variants are reported, and every comparison below is on the same 363 rows: treat any gain as a hypothesis for a new test set, not a result.
+****************************************************************************************************
+
+Spearman correlation of the two models' scores on the 363 rows: 0.677 (errors only: 0.297; correct rows only: 0.771)
+
+====================================================================================================
+AUROC (95% CI), recall at 5% / 10% false alarms, and the paired bootstrap against ModernBERT v3b alone and against Qwen alone
+====================================================================================================
+
+OVERALL: 363 rows, 170 errors
+   ModernBERT v3b           AUROC 0.771 (0.720-0.818)  recall@5%FA 0.229  @10%FA 0.329   at 0.5: recall 0.494, false-flag 0.197
+   Qwen2.5-1.5B             AUROC 0.765 (0.714-0.814)  recall@5%FA 0.106  @10%FA 0.218   at 0.5: recall 0.429, false-flag 0.187
+   ensemble: average        AUROC 0.780 (0.730-0.825)  recall@5%FA 0.124  @10%FA 0.312   at 0.5: recall 0.465, false-flag 0.161
+   ensemble: rank-average   AUROC 0.786 (0.736-0.831)  recall@5%FA 0.147  @10%FA 0.282
+   ensemble: average - ModernBERT v3b: +0.009  paired 95% CI -0.018 to +0.034; first better in 74.2% of resamples; two-sided p about 0.517   (interval includes 0)
+   ensemble: average - Qwen          : +0.015  paired 95% CI -0.007 to +0.040; first better in 90.0% of resamples; two-sided p about 0.199   (interval includes 0)
+   ensemble: rank-average - ModernBERT v3b: +0.015  paired 95% CI -0.010 to +0.038; first better in 88.6% of resamples; two-sided p about 0.228   (interval includes 0)
+   ensemble: rank-average - Qwen     : +0.021  paired 95% CI -0.002 to +0.047; first better in 95.9% of resamples; two-sided p about 0.083   (interval includes 0)
+
+NATURAL rows: 269 rows, 98 errors
+   ModernBERT v3b           AUROC 0.753 (0.699-0.807)  recall@5%FA 0.133  @10%FA 0.286   at 0.5: recall 0.398, false-flag 0.187
+   Qwen2.5-1.5B             AUROC 0.803 (0.753-0.853)  recall@5%FA 0.204  @10%FA 0.276   at 0.5: recall 0.469, false-flag 0.170
+   ensemble: average        AUROC 0.785 (0.733-0.838)  recall@5%FA 0.133  @10%FA 0.337   at 0.5: recall 0.480, false-flag 0.152
+   ensemble: rank-average   AUROC 0.791 (0.740-0.842)  recall@5%FA 0.153  @10%FA 0.276
+   ensemble: average - ModernBERT v3b: +0.032  paired 95% CI +0.004 to +0.060; first better in 99.0% of resamples; two-sided p about 0.021   <- interval excludes 0
+   ensemble: average - Qwen          : -0.017  paired 95% CI -0.040 to +0.004; first better in 5.8% of resamples; two-sided p about 0.115   (interval includes 0)
+   ensemble: rank-average - ModernBERT v3b: +0.038  paired 95% CI +0.013 to +0.063; first better in 99.9% of resamples; two-sided p about 0.002   <- interval excludes 0
+   ensemble: rank-average - Qwen     : -0.012  paired 95% CI -0.035 to +0.012; first better in 16.2% of resamples; two-sided p about 0.323   (interval includes 0)
+
+INDUCED rows: 94 rows, 72 errors (22 correct): AUROC ModernBERT v3b 0.724, Qwen2.5-1.5B 0.533, average 0.676, rank-average 0.674
+
+====================================================================================================
+Per class: recall at 0.5 and at the 10% false-alarm threshold (errors of the class against all correct rows), ModernBERT v3b | Qwen | average ensemble
+====================================================================================================
+   1 wrong arg              n=30 | AUROC 0.724 r@.5 0.43 r@10%FA 0.23 | AUROC 0.709 r@.5 0.27 r@10%FA 0.03 | AUROC 0.704 r@.5 0.33 r@10%FA 0.23
+   2 stale state            n= 4 | AUROC 0.861 r@.5 1.00 r@10%FA 0.00 | AUROC 0.856 r@.5 0.75 r@10%FA 0.25 | AUROC 0.904 r@.5 1.00 r@10%FA 0.75
+   3 wrong tool             n=18 | AUROC 0.754 r@.5 0.44 r@10%FA 0.33 | AUROC 0.754 r@.5 0.39 r@10%FA 0.28 | AUROC 0.756 r@.5 0.28 r@10%FA 0.28
+   4 repeated call          n=19 | AUROC 0.802 r@.5 0.63 r@10%FA 0.47 | AUROC 0.893 r@.5 0.79 r@10%FA 0.79 | AUROC 0.882 r@.5 0.84 r@10%FA 0.53
+   5 failure to propagate   n=20 | AUROC 0.756 r@.5 0.40 r@10%FA 0.40 | AUROC 0.787 r@.5 0.50 r@10%FA 0.30 | AUROC 0.790 r@.5 0.35 r@10%FA 0.25
+   6 ignored error          n=16 | AUROC 0.780 r@.5 0.50 r@10%FA 0.38 | AUROC 0.724 r@.5 0.31 r@10%FA 0.00 | AUROC 0.743 r@.5 0.25 r@10%FA 0.19
+   7 policy violation       n=63 | AUROC 0.785 r@.5 0.49 r@10%FA 0.32 | AUROC 0.753 r@.5 0.40 r@10%FA 0.14 | AUROC 0.791 r@.5 0.52 r@10%FA 0.32
+
+====================================================================================================
+Do the two models catch different errors? (errors caught at the 10%-false-alarm threshold of each model, overall rows)
+====================================================================================================
+   ModernBERT v3b   threshold 0.731: catches 56 of 170 errors
+   Qwen2.5-1.5B     threshold 0.936: catches 37 of 170 errors
+   caught by both 17, only ModernBERT 39, only Qwen 20, neither 94
+   by class (only-ModernBERT / only-Qwen / both): 1: 6/0/1; 2: 0/1/0; 3: 3/2/3; 4: 2/8/7; 5: 5/3/3; 6: 6/0/0; 7: 17/6/3

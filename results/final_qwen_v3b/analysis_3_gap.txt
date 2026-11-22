@@ -1,0 +1,22 @@
+====================================================================================================
+SYNTHETIC / VALIDATION / REAL, side by side (AUROC with 95% bootstrap CI, 2,000 resamples), from the prediction files
+====================================================================================================
+                                                           |                     ModernBERT v3b |                       Qwen2.5-1.5B
+REAL test (363 rows, human-reviewed)                       |         0.771 (0.720-0.818), n=363 |         0.765 (0.714-0.814), n=363
+   natural rows                                            |         0.753 (0.699-0.807), n=269 |         0.803 (0.753-0.853), n=269
+   induced rows                                            |          0.724 (0.606-0.832), n=94 |          0.533 (0.370-0.691), n=94
+SYNTHETIC test_synth (374 rows, Classes 2 and 6)           |         0.756 (0.710-0.803), n=374 |         1.000 (0.999-1.000), n=374
+VALIDATION (749 rows)                                      |         0.927 (0.908-0.946), n=749 |         0.982 (0.971-0.990), n=749
+   validation, BFCL                                        |         0.913 (0.877-0.946), n=398 |         0.978 (0.955-0.995), n=398
+   validation, CriticTool                                  |         0.983 (0.962-0.997), n=148 |         1.000 (1.000-1.000), n=148
+   validation, tau2 domains: synthetic, state flips, gold  |         0.688 (0.588-0.775), n=111 |         0.913 (0.858-0.960), n=111
+   validation, real-origin: natural                        |          0.960 (0.893-1.000), n=88 |          0.976 (0.920-1.000), n=88
+   validation, real-origin: induced                        |           1.000 (1.000-1.000), n=4 |           1.000 (1.000-1.000), n=4
+   validation, real-origin rows together                   |          0.962 (0.907-0.999), n=92 |          0.978 (0.931-1.000), n=92
+
+validation real-origin AUROC minus real test AUROC: ModernBERT v3b +0.192, Qwen2.5-1.5B +0.214
+test_synth AUROC minus real test AUROC:             ModernBERT v3b -0.014, Qwen2.5-1.5B +0.235
+
+the real-origin validation rows are NOT independent of the training rows' sources: a validation row is a different trajectory, but real-origin training and validation rows come from the same tau2 runs and tasks
+families (the split is grouped by (domain, task), so no task is in both, but the agents, domains and error styles are); the real TEST rows are the human-reviewed rows of D-022.
+real-origin validation: 20 errors in 92 rows: the interval is wide (see above).

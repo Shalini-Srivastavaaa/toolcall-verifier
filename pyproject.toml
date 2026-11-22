@@ -1,0 +1,32 @@
+[project]
+name = "tcv"
+version = "0.1.0"
+description = "Multi-turn tool-call verifier: a small trained model that scores agent tool calls for correctness before execution."
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv>=1.0.0",
+    "openai>=1.50.0",
+    "tenacity>=9.0.0",
+    "pydantic>=2.0",
+    "numpy>=1.24.0",
+    "scikit-learn>=1.4.0",
+    "matplotlib>=3.8.0",
+]
+
+[project.optional-dependencies]
+train = [
+    "transformers>=4.44.0",
+    "peft>=0.12.0",
+    "trl>=0.9.0",
+    "bitsandbytes>=0.43.0",
+    "accelerate>=0.33.0",
+    "wandb",
+    "datasets",
+]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 110

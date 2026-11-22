@@ -1,0 +1,127 @@
+====================================================================================================
+1. TRAINING COMPOSITION (errors per class by source group; the paired correct rows below)
+====================================================================================================
+
+train: 5569 rows, 2366 incorrect, 3203 correct
+   class                                         BFCL              CriticTool  natural (real agent, u  state flips (synthetic          tau2 synthetic   total
+   1 wrong arg                                     41                       0                       6                       0                     142     189
+   2 stale state                                  278                       0                       0                       0                     335     613
+   3 wrong tool                                     9                       0                       0                       0                      55      64
+   4 repeated call                                396                       0                       0                       0                     248     644
+   5 failure to propagate                           0                       0                       0                       0                     197     197
+   6 ignored error                                 80                     363                       0                       0                      46     489
+   7 policy violation                               0                       0                      10                     160                       0     170
+   ALL ERRORS                                     804                     363                      16                     160                    1023    2366
+   correct rows by group     BFCL: 1628; CriticTool: 363; natural (real agent, u: 0; state flips (synthetic: 0; tau2 gold (correct cal: 601; tau2 synthetic: 611; 
+   -> real-origin errors (natural + induced): 16 of 2366 (0.7%); synthetic or external: 2350
+   -> correct rows that are synthetic controls: 1275; real correct (tau2 gold + BFCL gold + CriticTool correct): 1928
+
+validation: 679 rows, 277 incorrect, 402 correct
+   class                                         BFCL              CriticTool  natural (real agent, u  state flips (synthetic          tau2 synthetic   total
+   1 wrong arg                                     10                       0                       2                       0                      11      23
+   2 stale state                                   29                       0                       0                       0                      17      46
+   3 wrong tool                                     6                       0                       0                       0                       4      10
+   4 repeated call                                 62                       0                       0                       0                       9      71
+   5 failure to propagate                           0                       0                       0                       0                      22      22
+   6 ignored error                                  0                      76                       0                       0                       4      80
+   7 policy violation                               0                       0                      13                      12                       0      25
+   ALL ERRORS                                     107                      76                      15                      12                      67     277
+   correct rows by group     BFCL: 244; CriticTool: 76; natural (real agent, u: 0; state flips (synthetic: 0; tau2 gold (correct cal: 52; tau2 synthetic: 30; 
+   -> real-origin errors (natural + induced): 15 of 277 (5.4%); synthetic or external: 262
+   -> correct rows that are synthetic controls: 101; real correct (tau2 gold + BFCL gold + CriticTool correct): 301
+
+Class 7 rows in train by source: {'natural (real agent, unperturbed run)': 10, 'state flips (synthetic)': 160} | by domain: {'airline': 8, 'retail': 145, 'telecom': 17}
+tau2-domain rows (retail, airline, telecom) in train: 2411 of 5569 | BFCL 2432 | CriticTool 726
+
+====================================================================================================
+2. VALIDATION BY SOURCE (counts, and the length-only baseline per source)
+====================================================================================================
+The model's validation predictions were not saved by the run, so its AUROC per source cannot be computed from the files we have (only the overall 0.895).
+length-only logistic regression fit on train: coefficient +0.270 per log-token (positive = longer means more likely incorrect)
+
+validation source (incorrect vs correct rows of the same kind)      rows  inc  cor  length AUROC               test rows analog
+BFCL                                                                 351  107  244         0.505
+CriticTool                                                           152   76   76         0.503
+tau2 domains, synthetic negatives                                    149   67   82         0.518
+state flips (negatives) vs tau2 correct                               94   12   82         0.626
+natural real errors vs tau2 correct                                   97   15   82         0.315
+induced real errors vs tau2 correct                                   82    0   82   not defined
+
+length-only AUROC on the other splits (same fit): val 0.599   test 0.675   
+   test natural errors + natural correct: 269 rows, 98 incorrect, length-only AUROC 0.626
+   test induced errors + induced correct: 94 rows, 72 incorrect, length-only AUROC 0.559
+
+====================================================================================================
+3. SCORE DISTRIBUTION ON TEST (model scores joined to the test rows by id)
+====================================================================================================
+363 rows, overall AUROC 0.667; score quantiles all rows: p5 0.09, p25 0.25, p50 0.37, p75 0.47, p95 0.58; rows >= 0.7: 6
+
+correct rows: n 193, median 0.314, mean 0.318, IQR 0.19-0.43
+   correct, natural: n 171, median 0.301, IQR 0.17-0.42
+   correct, induced: n  22, median 0.440, IQR 0.38-0.51
+
+incorrect rows by class and origin (AUROC = that group against ALL correct rows, 95% bootstrap interval; chance = 0.5):
+   group                                 n  median          IQR recall@0.5   AUROC  95% CI
+   ALL incorrect                       170   0.424  0.31-0.50       0.26   0.667  0.614-0.723
+   class 1 wrong arg                    30   0.405  0.31-0.53       0.33   0.672  0.571-0.766
+   class 2 stale state                   4   0.484  0.47-0.51       0.25   0.870  n < 10
+   class 3 wrong tool                   18   0.401  0.22-0.44       0.11   0.550  0.396-0.693
+   class 4 repeated call                19   0.423  0.31-0.51       0.26   0.649  0.511-0.770
+   class 5 failure to propagate         20   0.425  0.35-0.51       0.35   0.705  0.584-0.816
+   class 6 ignored error                16   0.471  0.39-0.51       0.31   0.768  0.662-0.859
+   class 7 policy violation             63   0.426  0.30-0.49       0.22   0.653  0.577-0.726
+   all incorrect, natural               98   0.398  0.28-0.49       0.23   0.616  0.547-0.689
+      class 1, natural                  21   0.352  0.29-0.50       0.29   0.609  0.488-0.727
+      class 3, natural                  14   0.353  0.19-0.42       0.07   0.479  0.311-0.629
+      class 4, natural                  16   0.386  0.31-0.50       0.25   0.667  0.537-0.794
+      class 5, natural                   1   0.537  0.54-0.54       1.00   0.943  n < 10
+      class 6, natural                   1   0.504  0.50-0.50       1.00   0.891  n < 10
+      class 7, natural                  45   0.426  0.28-0.49       0.22   0.630  0.540-0.715
+   all incorrect, induced               72   0.447  0.39-0.51       0.29   0.737  0.675-0.801
+      class 1, induced                   9   0.500  0.41-0.54       0.44   0.820  n < 10
+      class 2, induced                   4   0.484  0.47-0.51       0.25   0.870  n < 10
+      class 3, induced                   4   0.453  0.41-0.50       0.25   0.801  n < 10
+      class 4, induced                   3   0.423  0.24-0.47       0.33   0.551  n < 10
+      class 5, induced                  19   0.424  0.34-0.50       0.32   0.692  0.579-0.798
+      class 6, induced                  15   0.467  0.38-0.50       0.27   0.760  0.652-0.857
+      class 7, induced                  18   0.427  0.36-0.47       0.22   0.711  0.607-0.807
+
+per domain, AUROC with 95% interval (the model) and the length-only baseline on the same rows:
+   airline  n  116,  53 incorrect: AUROC 0.749 (0.664-0.834); length-only 0.698
+   retail   n  166,  72 incorrect: AUROC 0.687 (0.604-0.770); length-only 0.733
+   telecom  n   81,  45 incorrect: AUROC 0.599 (0.479-0.720); length-only 0.629
+
+Spearman correlation of the model score with the input length (log characters): +0.552 (all rows); within correct rows +0.546; within incorrect +0.476
+
+history length (number of turns before the call) in the test set, a property of how the rows were chosen:
+   natural  correct   n 171: median 16 turns, IQR 10-24
+   natural  incorrect n  98: median 20 turns, IQR 14-28
+   induced  correct   n  22: median 20 turns, IQR 18-26
+   induced  incorrect n  72: median 21 turns, IQR 16-30
+   AUROC of the raw number of turns (more turns = incorrect) on all test rows: 0.626; natural 0.627; induced 0.538
+recall at the 5% and 10% false-alarm cut (thresholds 0.550 and 0.514 in the run's report):
+   false-alarm 5%: threshold 0.543, recall 0.106; spread of ALL scores p5-p95 = 0.09-0.58
+   false-alarm 10%: threshold 0.513, recall 0.218; spread of ALL scores p5-p95 = 0.09-0.58
+
+====================================================================================================
+5. OLD v2 VERSUS THE FINAL MODEL ON THE SAME test_real ROWS
+====================================================================================================
+102 rows in the v2 file, 102 of them are test_real rows of the new test set
+incorrect: 25 with the new labels, 25 with the labels stored in the v2 file; rows where they differ: 0
+   old v2 (trained on the old 7,580 rows, no policy)    AUROC 0.686  95% CI 0.538-0.831
+   final model (new data, policy on)                    AUROC 0.688  95% CI 0.556-0.809
+   difference final - v2: +0.003  paired-bootstrap 95% CI -0.116 to +0.115 (2,000 resamples of the same rows)
+   class 1 (n=6): median score v2 0.22, final 0.31; recall at 0.5 v2 0.33, final 0.17
+   class 3 (n=3): median score v2 0.49, final 0.47; recall at 0.5 v2 0.33, final 0.33
+   class 4 (n=7): median score v2 0.93, final 0.52; recall at 0.5 v2 1.00, final 0.57
+   class 5 (n=1): median score v2 0.56, final 0.54; recall at 0.5 v2 1.00, final 1.00
+   class 7 (n=8): median score v2 0.47, final 0.52; recall at 0.5 v2 0.12, final 0.62
+   correct rows (n=77): median score v2 0.36, final 0.40; incorrect rows (n=25): v2 0.49, final 0.49
+   Spearman correlation of the two models' scores on these rows: +0.659
+
+====================================================================================================
+6. SHORTCUT BASELINES UNDER THE REAL_CV FOLDS (5 folds of whole task groups over the 363 test rows)
+====================================================================================================
+363 rows in 118 task groups; (incorrect, rows) per fold: [(34, 73), (34, 73), (34, 73), (34, 72), (34, 72)]
+   length only      out-of-fold AUROC 0.667  95% CI 0.612-0.725
+   length + domain  out-of-fold AUROC 0.674  95% CI 0.620-0.730

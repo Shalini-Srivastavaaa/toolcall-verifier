@@ -1,0 +1,24 @@
+{
+ "model": "ModernBERT v3b (models/final_v3b)",
+ "rule": "flag when probability >= threshold",
+ "computed_on": "the 363 real test rows (results/final_v3b/test_predictions.jsonl, scores of the saved GPU fp16 run); the false-alarm rate is the share of the 193 correct rows flagged. These are IN-SAMPLE operating points: the test set was also used to compare models (D-029, D-030), so on new traffic the false-alarm rate will differ, and in particular it depends on how much of the traffic looks like the induced rows, which score high (D-027).",
+ "operating_points": {
+  "fa05": {
+   "threshold": 0.8950190544128418,
+   "target_false_alarm": 0.05,
+   "false_alarm_on_test": 0.046632124352331605,
+   "recall_on_test": 0.22941176470588234
+  },
+  "fa10": {
+   "threshold": 0.7313704490661621,
+   "target_false_alarm": 0.1,
+   "false_alarm_on_test": 0.09844559585492228,
+   "recall_on_test": 0.32941176470588235
+  },
+  "default": {
+   "threshold": 0.5,
+   "false_alarm_on_test": 0.19689119170984457,
+   "recall_on_test": 0.49411764705882355
+  }
+ }
+}

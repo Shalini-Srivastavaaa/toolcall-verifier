@@ -1,0 +1,44 @@
+# Raw third-party benchmark data: large, not ours, re-downloadable. Never commit.
+# (data/derived/ is NOT ignored: small eval slices and labels are versioned.)
+data/raw/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets / run artifacts
+.env
+wandb/
+checkpoints/
+.ipynb_checkpoints/
+.DS_Store
+
+# Raw unfiltered LLM negatives (mislabeled noise for classes 1/2/5; see docs/decision_log.md D-009)
+data/derived/negatives_llm_raw.jsonl
+
+# Final-dataset preview (dry-run output, not the final dataset) and the Kaggle upload folder
+data/derived/final_preview/
+data/kaggle_upload/
+results/speed_cache/
+
+# The final dataset is rebuilt by data/build_final_dataset.py (row counts and SHA-256 are recorded in D-022)
+data/derived/final/
+
+# Trained model weights: never commit (D-027); the SHA-256 of each file is recorded in docs/decision_log.md
+models/
+
+# Dataset versions of D-028 (rebuilt by data/build_final_dataset.py --variant; SHA-256 in docs/decision_log.md D-028)
+data/derived/final_v3a/
+data/derived/final_v3b/
+data/kaggle_upload_v3a/
+data/kaggle_upload_v3b/
+
+# Local scrub patterns for scripts/make_release.sh (hold personal identifiers)
+.release-scrub
+
+# Weights copied for the Hugging Face upload (published on the Hub, not in git)
+release/hf_model/model.safetensors

@@ -1,0 +1,18 @@
+toolcall-verifier
+Copyright 2026 Shalini Srivastava
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE). It covers the
+source code in this repository, the documentation, and the fine-tuned model weights
+(`toolcall-verifier-modernbert-v3b`). The human labels of the published test set are licensed
+separately under CC BY 4.0 (see DATA_LICENSE.md).
+
+The model weights are a modified version of `answerdotai/ModernBERT-base` (Apache-2.0): the
+base model was fine-tuned as a two-class sequence classifier on the training data described in
+docs/model_card.md. The training data is not published.
+
+This product includes material from other projects, listed with their licenses and copyright
+holders in THIRD_PARTY_NOTICES.md:
+  - tau2-bench (Sierra Research), MIT License
+  - Berkeley Function-Calling Leaderboard / Gorilla (UC Berkeley and contributors), Apache License 2.0
+  - ModernBERT-base (Answer.AI, LightOn and contributors), Apache License 2.0
+  - Qwen2.5-1.5B (Alibaba Cloud), Apache License 2.0 (used for a comparison model only; no Qwen weights are published)

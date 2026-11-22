@@ -1,0 +1,36 @@
+[
+  {
+    "model": "openai-nano",
+    "n": 210,
+    "unparsed": 1,
+    "accuracy": 0.47368421052631576,
+    "recall_bad_calls": 0.18269230769230768,
+    "false_flag_rate": 0.23809523809523808,
+    "pred_correct_rate": 0.7894736842105263,
+    "p50_latency_s": 3.3503861039989715,
+    "p95_latency_s": 6.336230540997349,
+    "cost_per_call_usd": 0.00026166880952380953,
+    "by_domain": {
+      "retail": 0.5428571428571428,
+      "airline": 0.5714285714285714,
+      "telecom": 0.30434782608695654
+    }
+  },
+  {
+    "model": "openai-mini",
+    "n": 210,
+    "unparsed": 0,
+    "accuracy": 0.49047619047619045,
+    "recall_bad_calls": 0.22857142857142856,
+    "false_flag_rate": 0.24761904761904763,
+    "pred_correct_rate": 0.7619047619047619,
+    "p50_latency_s": 3.5857097915013583,
+    "p95_latency_s": 5.681442957997206,
+    "cost_per_call_usd": 0.0012151535714285716,
+    "by_domain": {
+      "retail": 0.5428571428571428,
+      "airline": 0.5857142857142857,
+      "telecom": 0.34285714285714286
+    }
+  }
+]
