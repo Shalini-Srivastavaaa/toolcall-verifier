@@ -5,6 +5,7 @@
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
 [![Hugging Face model](https://img.shields.io/badge/%F0%9F%A4%97%20model-toolcall--verifier--modernbert--v3b-yellow.svg)](https://huggingface.co/ShaliniSrivastava/toolcall-verifier-modernbert-v3b)
+[![Hugging Face dataset](https://img.shields.io/badge/%F0%9F%A4%97%20dataset-toolcall--verifier--test--set-yellow.svg)](https://huggingface.co/datasets/ShaliniSrivastava/toolcall-verifier-test-set)
 
 **A ~150M-parameter model that runs on a laptop CPU in about 0.7 s (GPT-5-mini: 3.9 s), at no API cost per call and with conversations that never leave your machine, matches or exceeds GPT-5-mini at catching real agent mistakes (AUROC 0.771 vs 0.719) and significantly beats GPT-5-nano (0.619) and the length shortcut (0.675).**
 
@@ -110,7 +111,7 @@ v = score(turns, {"name": "cancel_pending_order", "arguments": {"order_id": "#W2
 print(v.probability, v.flagged)   # about 0.02, False
 ```
 
-`fa05` and `fa10` flag 5% and 10% of the correct test calls (recall 0.23 and 0.33); `default` is 0.5. These thresholds were set on the test set. Try twelve real examples in the [local demo](#run-the-demo-locally) or get the weights from the [model page](https://huggingface.co/ShaliniSrivastava/toolcall-verifier-modernbert-v3b).
+`fa05` and `fa10` flag 5% and 10% of the correct test calls (recall 0.23 and 0.33); `default` is 0.5. These thresholds were set on the test set. Try twelve real examples in the [local demo](#run-the-demo-locally) or get the weights from the [model page](https://huggingface.co/ShaliniSrivastava/toolcall-verifier-modernbert-v3b) and the 363 human-labeled test rows from the [dataset page](https://huggingface.co/datasets/ShaliniSrivastava/toolcall-verifier-test-set).
 
 ## Run the demo locally
 

@@ -29,6 +29,8 @@ model-index:
 
 # Tool-call verifier: ModernBERT v3b
 
+**Links:** [code and results on GitHub](https://github.com/Shalini-Srivastavaaa/toolcall-verifier) · [human-labeled test set (dataset)](https://huggingface.co/datasets/ShaliniSrivastava/toolcall-verifier-test-set)
+
 A 149M-parameter classifier that reads a conversation between a user and a customer-service agent plus **one proposed tool call** and returns the probability that the call is **incorrect**, before the call is executed. It is `answerdotai/ModernBERT-base` fine-tuned on the data described below ([decision log](decision_log.md) D-022 to D-029; project writeup in [`docs/writeup.md`](writeup.md)).
 
 **Summary.** A ~150M-parameter model that runs on a laptop CPU in about 0.7 s (GPT-5-mini: 3.9 s), at no API cost per call and with conversations that never leave your machine, matches or exceeds GPT-5-mini at catching real agent mistakes (AUROC 0.771 vs 0.719) and significantly beats GPT-5-nano (0.619) and the length shortcut (0.675). On the 363 human-reviewed real test calls the model has AUROC 0.771 (0.720-0.818); at the setting that flags 10% of correct calls it catches 33% of the errors, at the setting that flags 5% it catches 23%. It is a triage signal, not a gate that stops most errors.

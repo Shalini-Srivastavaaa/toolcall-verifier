@@ -23,6 +23,8 @@ size_categories:
 
 # Test set: is this tool call correct?
 
+**Links:** [code and results on GitHub](https://github.com/Shalini-Srivastavaaa/toolcall-verifier) · [the verifier model](https://huggingface.co/ShaliniSrivastava/toolcall-verifier-modernbert-v3b)
+
 363 **real** tool calls from customer-service agents (τ²-bench retail, airline, telecom), each labeled by a human as `correct` or `incorrect` (with one of seven error classes), and 374 **synthetic** calls (`test_synth`) that are reported separately. Built for the ModernBERT v3b verifier of the `toolcall-verifier` project; see the writeup `docs/writeup.md` and decision log entries D-010, D-022, D-024, D-030 (in `docs/decision_log.md` of the code repository).
 
 **License: our labels CC BY 4.0, the τ²-bench content MIT (Sierra Research), the BFCL rows Apache-2.0.** Read [`DATA_LICENSE.md`](DATA_LICENSE.md) before reuse; it contains the notices you must keep.
