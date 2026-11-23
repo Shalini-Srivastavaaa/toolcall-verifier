@@ -7,7 +7,7 @@
 [![Hugging Face model](https://img.shields.io/badge/%F0%9F%A4%97%20model-toolcall--verifier--modernbert--v3b-yellow.svg)](https://huggingface.co/ShaliniSrivastava/toolcall-verifier-modernbert-v3b)
 [![Hugging Face dataset](https://img.shields.io/badge/%F0%9F%A4%97%20dataset-toolcall--verifier--test--set-yellow.svg)](https://huggingface.co/datasets/ShaliniSrivastava/toolcall-verifier-test-set)
 
-**A ~150M-parameter model that runs on a laptop CPU in about 0.7 s (GPT-5-mini: 3.9 s), at no API cost per call and with conversations that never leave your machine, matches or exceeds GPT-5-mini at catching real agent mistakes (AUROC 0.771 vs 0.719) and significantly beats GPT-5-nano (0.619) and the length shortcut (0.675).**
+**A ~150M-parameter model that runs on a laptop CPU in about 0.7 s (GPT-5-mini: 3.9 s), at no API cost per call and with conversations that never leave your machine. At catching real agent mistakes, it scores a higher AUROC than GPT-5-mini (this model 0.771, GPT-5-mini 0.719) and significantly beats GPT-5-nano (0.619) and the length shortcut (0.675).**
 
 ![AUROC with 95% intervals for ModernBERT v3b, Qwen2.5-1.5B, GPT-5-mini, GPT-5-nano and the two shortcut baselines](docs/figures/auroc_comparison.png)
 
