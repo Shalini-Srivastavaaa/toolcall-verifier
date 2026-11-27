@@ -1,6 +1,6 @@
 # Checking an agent's tool call before it runs: what worked, what didn't, and what the numbers can and cannot say
 
-*Project writeup. Every number below comes from a file committed in this repository; the references in brackets (D-0xx) are entries of [`docs/decision_log.md`](decision_log.md), the project's full decision log, which also records the caveats this text compresses (a short summary of the decisions that shaped the project is in [`DECISIONS.md`](../DECISIONS.md)). The final model is ModernBERT v3b.*
+*Project writeup. Every number below comes from a file committed in this repository; the references in brackets (D-0xx) are entries of [`docs/decision_log.md`](decision_log.md), the project's full decision log, which also records the caveats this text compresses. The final model is ModernBERT v3b.*
 
 **In one sentence.** A ~150M-parameter model that runs on a laptop CPU in about 0.7 s (GPT-5-mini: 3.9 s), at no API cost per call and with conversations that never leave your machine, matches or exceeds GPT-5-mini at catching real agent mistakes (AUROC 0.771 vs 0.719) and significantly beats GPT-5-nano (0.619) and the length shortcut (0.675).
 

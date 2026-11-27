@@ -158,7 +158,7 @@ eval/            analysis, baselines and judge scripts          data/   dataset-
 results/         predictions and analysis outputs of the runs   scripts/ release and chart scripts
 ```
 
-[Writeup](docs/writeup.md) · [Model card](docs/model_card.md) · [Decisions](DECISIONS.md) (summary) · [Full decision log](docs/decision_log.md) · [License audit](docs/licenses.md) · [Release steps](docs/release_steps.md)
+[Writeup](docs/writeup.md) · [Model card](docs/model_card.md) · [Full decision log](docs/decision_log.md) · [License audit](docs/licenses.md) · [Release steps](docs/release_steps.md)
 
 **License.** Code and model weights: Apache-2.0 ([`LICENSE`](LICENSE), [`NOTICE`](NOTICE), [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)). Human labels of the test set: CC BY 4.0; the τ²-bench content in it: MIT ([`DATA_LICENSE.md`](DATA_LICENSE.md)).
 
