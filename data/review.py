@@ -3,7 +3,7 @@
 
 Loads the failing trajectories (label == "incorrect") from a candidates
 file, shows them one at a time, and asks you to assign one of the seven
-taxonomy classes (data/taxonomy.md) or type your own short label if none
+taxonomy classes (docs/labeling_guide.md) or type your own short label if none
 fit. Labels are appended to data/labels_manual.jsonl as you go, so killing
 the process (Ctrl+C, closing the terminal, whatever) never loses progress —
 rerunning just picks up at the first still-unlabeled trajectory.
@@ -20,7 +20,7 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
-# Keep in sync with data/taxonomy.md (the canonical labeling guide) if the
+# Keep in sync with docs/labeling_guide.md (the labeling guide) if the
 # seven classes ever get revised during Phase 1.
 TAXONOMY = {
     1: "wrong_argument_value",

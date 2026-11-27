@@ -1,6 +1,6 @@
 # Checking an agent's tool call before it runs: what worked, what didn't, and what the numbers can and cannot say
 
-*Project writeup. Every number below comes from a file committed in this repository; the references in brackets (D-0xx) are entries of [`docs/decision_log.md`](decision_log.md), the project's full decision log, which also records the caveats this text compresses. The final model is ModernBERT v3b.*
+*Project writeup. Every number below comes from a file committed in this repository; the references in brackets (D-0xx) are entries of [`docs/decision_log.md`](decision_log.md), the project's decision log, which also records the caveats this text compresses. The final model is ModernBERT v3b.*
 
 **In one sentence.** A ~150M-parameter model that runs on a laptop CPU in about 0.7 s (GPT-5-mini: 3.9 s), at no API cost per call and with conversations that never leave your machine, matches or exceeds GPT-5-mini at catching real agent mistakes (AUROC 0.771 vs 0.719) and significantly beats GPT-5-nano (0.619) and the length shortcut (0.675).
 
@@ -14,7 +14,7 @@ The testbed is τ²-bench, a benchmark of customer-service agents in three domai
 
 ## 2. The error taxonomy
 
-Seven classes, defined in [`data/taxonomy.md`](../data/taxonomy.md) and [`docs/labeling_guide.md`](labeling_guide.md):
+Seven classes, defined in [`docs/labeling_guide.md`](labeling_guide.md):
 
 | # | Class | Example |
 |---|---|---|
@@ -104,9 +104,9 @@ What it does not show. This is one pair of models, one recipe each (Qwen trained
 - **Weak classes.** Class 1 recall is 0.43 for the final model against 0.77 for GPT-5-mini; recall at strict operating points is low for every trained model (0.33 at 10% false alarms). The model catches a third of the errors it is asked about at a 10% false-alarm cost, which makes it a triage signal, not a gate that stops most errors.
 - **Brittleness.** Hand-made examples are outside the training distribution: in probes the same call scored 0.02 or 0.88 depending on how the confirmation was phrased, and a clear policy violation (cancelling a delivered order) was not flagged (D-031). This is anecdotal and not a study.
 - **One kind of agent.** All data is customer-service dialogue in three τ²-bench domains plus BFCL; nothing here says how the model behaves on other tools, other domains or a different agent.
-- **Licensing.** The test set and parts of the training data contain model-generated conversation text, The project owner reviewed those providers' terms (outputs owned by the user; no use to build competing models); that is the owner's reading, not legal advice (see [`docs/licenses.md`](licenses.md)). The code, the model and the test set are published; the training data is not.
+- **Licensing.** The test set and parts of the training data contain model-generated conversation text. The author reviewed the providers' terms (outputs owned by the user; not used to build competing models); that is the author's reading, not legal advice (see [`docs/licenses.md`](licenses.md)). The code, the model and the test set are published; the training data is not.
 
-**Next steps, in order of value.** (1) A larger, fresh human-reviewed set of *natural* errors, enough to separate effects of +0.05, kept untouched until the end. (2) A controlled test of the labeling-process question: train on the same number of errors labeled by the pipeline and labeled by humans. (3) Choose thresholds on a validation set of real rows, not on the test set. (4) Try Qwen again on the natural errors, where it was nominally ahead, and fix the induced-row behavior before any ensemble. (5) A demo that replays a conversation and blocks the flagged call (plan in [`docs/demo_plan.md`](demo_plan.md)).
+**Next steps, in order of value.** (1) A larger, fresh human-reviewed set of *natural* errors, enough to separate effects of +0.05, kept untouched until the end. (2) A controlled test of the labeling-process question: train on the same number of errors labeled by the pipeline and labeled by humans. (3) Choose thresholds on a validation set of real rows, not on the test set. (4) Try Qwen again on the natural errors, where it was nominally ahead, and fix the induced-row behavior before any ensemble. (5) A demo that replays a conversation and blocks the flagged call.
 
 ## Where the numbers come from
 
@@ -116,7 +116,7 @@ What it does not show. This is one pair of models, one recipe each (Qwen trained
 | Visibility 11% to 93% | D-017 |
 | Taxonomy rules, queue results, read-only and line-probe rules | D-018, D-019, D-022, D-024; `docs/labeling_guide.md` |
 | Data sizes and real-error counts per run | D-025, D-026, D-028; `results/final_v1/train_composition_before_after.txt` |
-| Test set composition | README "Final dataset, test set and results" |
+| Test set composition | D-022; [`docs/labeling_guide.md`](labeling_guide.md) |
 | Shortcut baselines, `cancel_reservation`, induced signature | D-019, D-025, D-027, D-029; `results/final_v3b/analysis.txt` |
 | Main table, paired tests, per class, per domain | D-029, D-030; `results/final_qwen_v3b/analysis_*.txt`, `results/final_v3b/analysis.txt` |
 | Ensemble | D-030 step 2; `results/final_qwen_v3b/analysis_2_ensemble.txt` |

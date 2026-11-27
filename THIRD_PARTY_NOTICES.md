@@ -1,6 +1,6 @@
 # Third-party notices
 
-What this repository uses from other projects, the license of each and what we do with it. The full license texts are in [`licenses/`](licenses/). Details of the audit (what was read, what is not settled) are in [`docs/licenses.md`](docs/licenses.md).
+What this repository uses from other projects, the license of each and what we do with it. The full license texts are in [`licenses/`](licenses/). A summary of the terms, including points to check before reuse, is in [`docs/licenses.md`](docs/licenses.md).
 
 ## tau2-bench (MIT)
 

@@ -91,9 +91,9 @@ def modernbert_cpu(n):
 
 def t4_from_records():
     mb = json.load(open(ROOT / "docs" / "final_v3b_train_info.json"))["val_metrics"]
-    qwen_rt, qwen_n = 167.8, 749     # Kaggle log of qwen_v3b Version 3 (docs/qwen_v3b_run_log.txt): eval_runtime of the epoch-2 validation pass at batch 2
+    qwen_rt, qwen_n = 167.8, 749     # Kaggle log of the Qwen training run (not published): eval_runtime of the epoch-2 validation pass at batch 2
     return {"modernbert_t4": {"seconds_per_row_amortized": mb["eval_runtime"] / 749, "rows_per_second": mb["eval_samples_per_second"], "source": "docs/final_v3b_train_info.json val_metrics.eval_runtime (749 validation rows, fp16, length-sorted batches)"},
-            "qwen_t4": {"seconds_per_row_amortized": qwen_rt / qwen_n, "rows_per_second": qwen_n / qwen_rt, "source": "docs/qwen_v3b_run_log.txt: eval_runtime 167.8 s for the 749 validation rows at epoch 2 (4-bit, fp16, batch 2, length-sorted)"}}
+            "qwen_t4": {"seconds_per_row_amortized": qwen_rt / qwen_n, "rows_per_second": qwen_n / qwen_rt, "source": "Kaggle log of the Qwen training run: eval_runtime 167.8 s for the 749 validation rows at epoch 2 (4-bit, fp16, batch 2, length-sorted)"}}
 
 
 def main():

@@ -37,7 +37,7 @@ data/derived/final_v3b/
 data/kaggle_upload_v3a/
 data/kaggle_upload_v3b/
 
-# Local scrub patterns for scripts/make_release.sh (hold personal identifiers)
+# Local scrub patterns for the release export (hold personal identifiers)
 .release-scrub
 
 # Weights copied for the Hugging Face upload (published on the Hub, not in git)
