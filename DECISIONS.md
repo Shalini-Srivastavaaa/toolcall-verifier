@@ -1,6 +1,6 @@
 # Decisions that shaped the project
 
-A short list of the decisions that determined the final project: what was decided, why and the key number, with a link to the full entry. The complete log, with every experiment, caveat and correction, is [`docs/decision_log.md`](docs/decision_log.md) (D-001 to D-034).
+A short list of the decisions that determined the final project: what was decided, why and the key number, with a link to the full entry. The complete log, with every experiment, caveat and correction, is [`docs/decision_log.md`](docs/decision_log.md) (D-001 to D-035).
 
 ## 1. Seven-class taxonomy, defined by what the call does wrong
 
@@ -40,11 +40,11 @@ These almost never occur naturally, so we inject a tool fault, a user correction
 
 ## 10. Human review, a labeling guide and two rules
 
-Every test label is a human decision (five queues). Rules written during review: a read-only call is never Class 7 and parallel lookups are correct; a first telecom line lookup is correct unless the target was knowable (removed 26 errors; test went from 197 to 170 errors). Full entry: [D-022](docs/decision_log.md#d-022--final-dataset-builder-databuild_final_datasetpy-dry-run-only), [D-024](docs/decision_log.md#d-024--labeling-guide-class-7-renamed-policy-violation-queue-5-and-queue-2-errors-in-the-test-set-2026-11-15).
+Every test row was reviewed by a human (review queues); some labels were then set by written rules, including the queue-5 re-check, which was applied by rule: 34 calls first marked wrong became correct. Rules written during review: a read-only call is never Class 7 and parallel lookups are correct; a first telecom line lookup is correct unless the target was knowable (removed 26 errors; test went from 197 to 170 errors). Full entry: [D-022](docs/decision_log.md#d-022--final-dataset-builder-databuild_final_datasetpy-dry-run-only), [D-024](docs/decision_log.md#d-024--labeling-guide-class-7-renamed-policy-violation-queue-5-and-queue-2-errors-in-the-test-set-2026-11-15).
 
 ## 11. Final dataset builder and training gates
 
-Test rows come only from human decisions; no test task is in training. Real-origin training rows are admitted per class by measured first-labeler precision (Classes 1, 4, 7 on the first labeler's word, with the guide's rules applied). Full entry: [D-022](docs/decision_log.md#d-022--final-dataset-builder-databuild_final_datasetpy-dry-run-only), [D-026](docs/decision_log.md#d-026--real-data-in-training-the-data-fix-after-the-first-final-run-2026-11-21).
+Test rows come only from human-reviewed items (some labels adjusted by written rules); no test task is in training. Real-origin training rows are admitted per class by measured first-labeler precision (Classes 1, 4, 7 on the first labeler's word, with the guide's rules applied). Full entry: [D-022](docs/decision_log.md#d-022--final-dataset-builder-databuild_final_datasetpy-dry-run-only), [D-026](docs/decision_log.md#d-026--real-data-in-training-the-data-fix-after-the-first-final-run-2026-11-21).
 
 ## 12. Diagnosis: 16 real errors in training
 

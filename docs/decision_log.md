@@ -1398,7 +1398,13 @@ No API call and no upload. **Your decisions:** Apache-2.0 for the code and the M
 
 **Licenses.** `docs/licenses.md` 3.2 changed from "not read / unreviewed" to: reviewed by the project owner on 2026-11-22, outputs owned by the user under the OpenAI and Anthropic terms, no competing-model use. This is the owner's conclusion; I did not read the terms and the section says so, and it is not legal advice. The older text is kept for the record. The statements "terms not reviewed" in the README, `DATA_LICENSE.md` (three copies), the model card and `DECISIONS.md` were changed to match. Not looked for: the τ²-bench authors' own statement about their transcripts.
 
-**Upload.** Only the dataset card (`README.md`) was re-uploaded to the Hub, as asked; the Hub copies of `DATA_LICENSE.md` and the model card still say "not reviewed" until they are re-uploaded. The GitHub repository was updated by a new commit.
+**Upload.** Only the dataset card (`README.md`) was re-uploaded to the Hub, as asked; the Hub copies of `DATA_LICENSE.md` and the model card still say "not reviewed" until they are re-uploaded. **Update:** both were re-uploaded afterwards at the owner's request, so the Hub, GitHub and the source repository now say the same. The GitHub repository was updated by a new commit. **Dataset viewer (open in D-033): working** on 2026-11-22 after this upload (`is-valid`: viewer, preview, search, filter and statistics all true; configs `real` and `synthetic`).
+
+---
+
+## D-035 — Wording about the test labels and other overstated sentences corrected (2026-11-27)
+
+A check against D-022 showed sentences that said more than the records support. **Test labels:** "every label is a human decision" was too strong. Every test row was reviewed by a human, but written rules adjusted some labels without a second look: queue 5 was applied by rule (34 calls marked wrong became correct, all 34 in the final test set; one error candidate removed), and the line-probe rule removed 26 accepted errors. The dataset card also said the Class 7 decisions were re-made and the correct calls each confirmed by a human; both corrected. The README, `DECISIONS.md`, the writeup, the model card, the dataset card and the three `DATA_LICENSE.md` copies now say this. **Writeup:** the licensing bullet still said the provider terms were unread and nothing was published; updated. **README:** "Real labeled data was the lever" became "appears to have been", and the headline edit the owner made on GitHub was copied into this repository. No data, label or number changed.
 
 ---
 

@@ -32,7 +32,7 @@ On the **363-row human-reviewed test set**: 170 incorrect calls (98 natural, 72 
 
 ## Why you can trust these numbers
 
-- **A hand-verified test set.** 363 real calls from benchmark runs (the conversations are model-generated; the labels are not); every label is a human decision under a written [labeling guide](docs/labeling_guide.md) with consistency rules (for example, a read-only lookup is never a policy violation).
+- **A human-reviewed test set.** 363 real calls from benchmark runs (the conversations are model-generated; the labels are not); every row was reviewed by a human under a written [labeling guide](docs/labeling_guide.md) with consistency rules (for example, a read-only lookup is never a policy violation). Written rules then adjusted some labels without a second look: 34 calls first marked wrong were changed to correct, and 26 accepted errors on telecom line lookups were removed.
 - **Shortcut baselines next to every result.** Length alone and tool name alone are scored like any model; both are in the table.
 - **Paired bootstrap comparisons.** All scorers see the same rows, and differences are resampled together.
 - **Natural and induced errors reported separately.** Induced errors (faults we inject into real runs) come from a different agent and user simulator and behave differently, so they never hide inside one number.
@@ -72,11 +72,11 @@ flowchart LR
     H --> I["Score before<br/>the call executes"]
 ```
 
-The training data mixes synthetic corruptions (each paired with a control that keeps the artifact but removes the error), 220 real errors mined from failed benchmark runs, and induced errors. Real-origin rows are shown three times per epoch. Every test label is a human decision. The model input is the last 30 turns with tool results shown in full when they contain a value of the candidate call, the policy text of the candidate's tool, and the candidate call last, at most 4,096 tokens. Training is ModernBERT-base, 3 epochs, one Kaggle T4, 1.9 hours (7,154 training rows, 749 validation rows).
+The training data mixes synthetic corruptions (each paired with a control that keeps the artifact but removes the error), 220 real errors mined from failed benchmark runs, and induced errors. Real-origin rows are shown three times per epoch. Every test row was reviewed by a human; written rules adjusted some labels. The model input is the last 30 turns with tool results shown in full when they contain a value of the candidate call, the policy text of the candidate's tool, and the candidate call last, at most 4,096 tokens. Training is ModernBERT-base, 3 epochs, one Kaggle T4, 1.9 hours (7,154 training rows, 749 validation rows).
 
 ## Key findings
 
-- **Real labeled data was the lever.** ModernBERT's AUROC was 0.667 with 16 real training errors, 0.732 with 94 and 0.771 with 220 (the last step also added tool balancing, so this is a trend, not a controlled experiment).
+- **Real labeled data appears to have been the lever.** ModernBERT's AUROC was 0.667 with 16 real training errors, 0.732 with 94 and 0.771 with 220 (the last step also added tool balancing, so this is a trend, not a controlled experiment).
 - **A 10× bigger model did not help on real errors.** Qwen2.5-1.5B scores 1.000 on held-out synthetic errors (ModernBERT: 0.756) but 0.765 against 0.771 on real ones.
 - **Showing the model the evidence is necessary, not sufficient.** The first input showed a median 11% of tool-result text, the evidence-aware input 93%; AUROC moved only from 0.655 to 0.686 (interval 0.535-0.834, 102 rows) until real training data arrived.
 - **Shortcuts were found, measured and partly fixed.** Length alone gives 0.675 and tool name alone 0.716. An earlier model scored all 20 test `cancel_reservation` calls with a median of 0.99 (a tool-name shortcut); after tool balancing the median on the 14 correct ones is 0.17, though 5 of 14 still score above 0.9. The induced-run false-flag rate fell from 73% to 27%.
