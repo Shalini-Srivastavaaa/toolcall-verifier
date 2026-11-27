@@ -153,7 +153,7 @@ The T4 figures are batch throughput, not single-request latency; the judge laten
 verifier/        inference package (predict.py, data/, check_against_saved.py)
 release/         test_set/ (public test set), hf_model/ (Hugging Face model folder), space/ (Gradio demo)
 docs/            writeup, model card, licenses, labeling guide, training runbook, decision log, figures/
-notebooks/       Kaggle notebooks of the final runs (kaggle_phase5_modernbert, kaggle_phase6_qwen), their generators, legacy Colab originals
+notebooks/       the two Kaggle notebooks that trained ModernBERT v3b and Qwen2.5-1.5B
 eval/            analysis, baselines and judge scripts          data/   dataset-building scripts (they need data not published here)
 results/         predictions and analysis outputs of the runs   scripts/ packaging and chart scripts
 ```
