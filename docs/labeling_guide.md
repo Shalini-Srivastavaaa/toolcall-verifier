@@ -59,7 +59,7 @@ Every Class 7 row carries a `class7_reason`, one of:
    `parallel_lookup`. This **departs on purpose from the τ²-bench policies**, which tell the agent to make at most one tool call at a time
    (airline, retail and telecom policy files all say it). The reason: that rule exists because writes can depend on one another and on what a
    lookup returns; independent lookups cannot. Penalizing them would teach the verifier to flag harmless behavior and would mix a style rule with
-   the errors we want to catch. A write issued beside an outstanding call stays an error (`parallel_write`).
+   the errors the verifier is meant to catch. A write issued beside an outstanding call stays an error (`parallel_write`).
 
 ## Line lookups (telecom `get_details_by_id` on a line id)
 

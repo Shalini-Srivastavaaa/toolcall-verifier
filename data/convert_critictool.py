@@ -1,4 +1,4 @@
-"""Convert CriticTool's external-error data to our row format (D-019). Training split only.
+"""Convert CriticTool's external-error data to the project's row format (D-019). Training split only.
 
 Source: https://huggingface.co/datasets/chocckaka/CriticTool-Dataset (dataset card: Apache-2.0; paper arXiv 2506.13977,
 CC BY 4.0), the four files under external_error/ downloaded to data/raw/critictool/ (gitignored, never executed).
@@ -6,7 +6,7 @@ CC BY 4.0), the four files under external_error/ downloaded to data/raw/criticto
 Each record is a tool-use context that ENDS in an environment error (rate limit, connection reset, timeout, daily
 quota, ...) plus `ground_truth`: the list of correct next actions. In all 799 records the first ground-truth action
 is a retry of the failed call and the second is the next step of the task. The dataset stores no model outputs, so
-there are no recorded cases of an agent mishandling the error. We build both sides from the ground truth:
+there are no recorded cases of an agent mishandling the error. Both sides are built from the ground truth:
 
   correct   candidate = ground_truth[0], the retry of the failed call (label correct)
   Class 6   candidate = ground_truth[1], the next step taken as if the failed call had worked (label incorrect,

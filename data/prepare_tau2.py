@@ -8,7 +8,7 @@ each was ever performed (`action_match`). That's a *trajectory-level*
 it can't be zipped positionally against the agent's actual tool calls (see
 docs/decision_log.md for the verification that ruled this out).
 
-What we extract instead, per simulation, is a single (context, candidate)
+What is extracted instead, per simulation, is a single (context, candidate)
 pair built from the LAST tool call the agent made:
 
   - exact match (name + args) against a gold action  -> label "correct"
@@ -42,7 +42,7 @@ DOMAINS = ("retail", "airline", "telecom")
 
 
 def domain_of(filename: str) -> str | None:
-    """Map a results filename to one of our three domains, excluding the
+    """Map a results filename to one of the three domains, excluding the
     telecom-workflow / -op variants (different task format, out of scope here).
     """
     stem = Path(filename).stem

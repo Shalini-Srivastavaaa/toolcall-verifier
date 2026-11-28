@@ -1,4 +1,4 @@
-"""Run the Phase 0 judges (gpt-5-nano and gpt-5-mini, low reasoning effort) on the FINAL test set, so the judges and our model are
+"""Run the Phase 0 judges (gpt-5-nano and gpt-5-mini, low reasoning effort) on the FINAL test set, so the judges and the model are
 compared on identical rows (D-023). The prompt is the Phase 0 one (eval/prompts.py, unchanged).
 
     python eval/judge_new_test.py                  # ESTIMATE ONLY: expected cost now and with the projected review additions; no API call
@@ -111,7 +111,7 @@ def estimate(rows, models, pricing, use_phase0, cap):
     per_row = {k: float(np.mean([row_cost(r, k, pricing, calibration(k))[0] for r in rows])) if rows else 0.0 for k in models}
     for label, frac in (("if 40% of the candidates are accepted", 0.4), ("if all candidates are accepted", 1.0)):
         added = frac * REVIEW_ADDITIONS["error_candidates"] + REVIEW_ADDITIONS["correct_examples"]
-        # the review rows are not in the test file yet, so the mean cost of the rows we have stands in for them (the first rows are the long telecom runs of test_real)
+        # the review rows are not in the test file yet, so the mean cost of the available rows stands in for them (the first rows are the long telecom runs of test_real)
         cost = added * sum(per_row.values())
         print(f"   {label}: about {cur + added:.0f} rows ({added:.0f} new), about ${cost:.2f} for the new rows with both judges (about ${total_new + cost:.2f} including what is still to run now)")
 
@@ -297,7 +297,7 @@ def main():
             ids = [r["trajectory_id"] for r in rows]
             if all(i in ours for i in ids):
                 y = np.array([r["label"] == "incorrect" for r in rows]).astype(int)
-                print(f"   our model on the same {len(ids)} rows: AUROC {roc_auc_score(y, np.array([ours[i] for i in ids])):.3f}")
+                print(f"   the model on the same {len(ids)} rows: AUROC {roc_auc_score(y, np.array([ours[i] for i in ids])):.3f}")
             else:
                 print("   --compare file does not cover every test row; skipped")
 

@@ -23,7 +23,7 @@ This page summarizes what the project is built on and the terms it is published 
 
 **3.1 CriticTool.** The only license statement found for the dataset is the Hugging Face card. Its GitHub repository shows no license. The published weights were trained on part of this data (878 converted rows, 439 of them errors); none of it is redistributed.
 
-**3.2 Model-generated text.** The conversations in the test set, the induced runs, the synthetic negatives and the proposed labels include output of commercial language models. The author reviewed the OpenAI and Anthropic terms (2026-11-22) and concluded that the output belongs to the user and that this project does not use it to build competing models. That is the author's own reading. Anyone reusing the text should check those terms for their own use. The τ²-bench authors' position on reuse of their recorded transcripts was not separately checked.
+**3.2 Model-generated text.** The conversations in the test set, the induced runs, the synthetic negatives and the proposed labels include output of commercial language models. The OpenAI and Anthropic terms were reviewed (2026-11-22), with the conclusion that the output belongs to the user and that this project does not use it to build competing models. This is not legal advice. Anyone reusing the text should check those terms for their own use. The τ²-bench authors' position on reuse of their recorded transcripts was not separately checked.
 
 **3.3 BFCL provenance.** Only the multi-turn categories of BFCL v4 are used. The origin of each category was not audited.
 

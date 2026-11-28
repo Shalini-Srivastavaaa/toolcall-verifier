@@ -36,7 +36,7 @@ tau2-domain rows (retail, airline, telecom) in train: 2411 of 5569 | BFCL 2432 |
 ====================================================================================================
 2. VALIDATION BY SOURCE (counts, and the length-only baseline per source)
 ====================================================================================================
-The model's validation predictions were not saved by the run, so its AUROC per source cannot be computed from the files we have (only the overall 0.895).
+The model's validation predictions were not saved by the run, so its AUROC per source cannot be computed from the available files (only the overall 0.895).
 length-only logistic regression fit on train: coefficient +0.270 per log-token (positive = longer means more likely incorrect)
 
 validation source (incorrect vs correct rows of the same kind)      rows  inc  cor  length AUROC               test rows analog

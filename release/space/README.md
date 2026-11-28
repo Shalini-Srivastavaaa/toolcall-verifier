@@ -22,5 +22,5 @@ Scores whether a customer-service agent's proposed tool call is incorrect, befor
 
 - Model: the Hub repository named in `MODEL_REPO` (default `ShaliniSrivastava/toolcall-verifier-modernbert-v3b`; set the variable in the Space settings or edit the default in `app.py`).
 - Files: `app.py`, `predict.py` and `data/` (the inference code and the policy text, identical to the code repository), `examples.json` (the 12 rows, built by `scripts/build_space.py` from the public test set).
-- License: Apache-2.0 for the code; the example conversations are from tau2-bench (MIT, Sierra Research) with our labels (CC BY 4.0); see `DATA_LICENSE.md`, `LICENSE` and `NOTICE`.
+- License: Apache-2.0 for the code; the example conversations are from tau2-bench (MIT, Sierra Research) with the project's labels (CC BY 4.0); see `DATA_LICENSE.md`, `LICENSE` and `NOTICE`.
 - Run locally: `pip install -r requirements.txt gradio==6.32.0` then `python app.py` (set `MODEL_DIR=/path/to/model` to use local weights).

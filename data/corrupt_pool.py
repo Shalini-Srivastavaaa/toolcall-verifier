@@ -4,7 +4,7 @@ Reads from:
   data/derived/train_pool.jsonl   (tau2-bench correct examples)
   data/derived/bfcl_pool.jsonl    (BFCL v4 correct examples)
 
-For each correct example we attempt to produce one negative per applicable
+For each correct example, one negative is attempted per applicable
 error class.  Two corruption strategies are used:
 
   Programmatic (no LLM, zero cost):
@@ -28,21 +28,21 @@ Each output line has the same schema as train_pool.jsonl plus:
 Design notes:
 - Each correct example generates at most ONE negative per class (hard cap to
   avoid overwhelming one class).
-- For programmatic corruptions: we directly mutate the candidate_tool_call
-  or inject/remove turns in a rule-based way.
-- For LLM corruptions: we send the full context + candidate + a class-specific
-  system prompt, and ask the model to return a mutated candidate_tool_call.
-  We validate the response (must be same tool name except for Class 3, must
+- For programmatic corruptions: the candidate_tool_call is mutated directly,
+  or turns are injected/removed in a rule-based way.
+- For LLM corruptions: the full context + candidate + a class-specific
+  system prompt are sent, asking the model to return a mutated candidate_tool_call.
+  The response is validated (must be same tool name except for Class 3, must
   differ from the original call, must parse as valid JSON).
 - Class 4 programmatic: inject a copy of the candidate call earlier in the
   turns list (as an assistant_tool_call turn), signaling the call was already
   made. This requires >=1 user turn preceding the candidate so there's
   a natural injection point.
-- Class 7 programmatic: from BFCL miss_func/miss_param examples we already
-  know when NO call should happen. For tau2-bench we look for adjacent
+- Class 7 programmatic: BFCL miss_func/miss_param examples already show
+  when NO call should happen. For tau2-bench, the targets are adjacent
   tool calls in the turns that are "setup" calls (get/fetch/check/list prefix)
-  and produce a version that *skips* the setup: we remove the last setup
-  turn-pair so the context looks like the agent skipped the prerequisite.
+  and the output is a version that *skips* the setup: the last setup
+  turn-pair is removed so the context looks like the agent skipped the prerequisite.
 
 Run:
   python data/corrupt_pool.py [options]
@@ -216,7 +216,7 @@ Return the corrupted tool call JSON:"""
 def corrupt_class4(ex: dict, rng: random.Random) -> Optional[dict]:
     """Class 4: Repeated Call — inject the candidate call earlier in the turns.
 
-    We insert a copy of the candidate tool call as an assistant_tool_call turn
+    A copy of the candidate tool call is inserted as an assistant_tool_call turn
     earlier in the conversation, plus a synthetic tool result confirming it
     succeeded. This makes the conversation look like the call was already made.
     """
@@ -224,13 +224,13 @@ def corrupt_class4(ex: dict, rng: random.Random) -> Optional[dict]:
     candidate = ex["candidate_tool_call"]
 
     # Find the last user/system turn index to inject BEFORE
-    # We need at least one user turn so the duplication is non-trivial
+    # At least one user turn is needed so the duplication is non-trivial
     user_turn_indices = [i for i, t in enumerate(turns) if t.get("role") == "user"]
     if not user_turn_indices:
         return None
 
     # Pick an injection point: somewhere in the middle of the turns
-    # We want the duplicate to appear a bit before the end so it reads
+    # The duplicate should appear a bit before the end so it reads
     # as "already done earlier in the session"
     injection_pool = user_turn_indices[:-1] if len(user_turn_indices) > 1 else user_turn_indices
     inject_after = rng.choice(injection_pool)
@@ -261,8 +261,8 @@ def corrupt_class4(ex: dict, rng: random.Random) -> Optional[dict]:
 def corrupt_class7(ex: dict, rng: random.Random) -> Optional[dict]:
     """Class 7: Missing Precondition — remove the last lookup/setup call from turns.
 
-    We look for the last assistant_tool_call in the turns whose name matches
-    a LOOKUP_PREFIXES pattern. We remove that call and its following tool result
+    Finds the last assistant_tool_call in the turns whose name matches
+    a LOOKUP_PREFIXES pattern. That call and its following tool result are removed
     (if any). This simulates an agent that skipped the prerequisite lookup
     and jumped straight to the action.
 
@@ -281,7 +281,7 @@ def corrupt_class7(ex: dict, rng: random.Random) -> Optional[dict]:
     if len(call_indices) < 1:
         return None  # No lookup calls to remove
 
-    # We need at least one user turn so the context is not just empty turns
+    # At least one user turn is needed so the context is not just empty turns
     user_turns = [t for t in turns if t.get("role") == "user"]
     if not user_turns:
         return None
@@ -598,7 +598,7 @@ def corrupt_llm(
 
     corrupted = copy.deepcopy(ex)
 
-    # Class 6 special case: the mutation is in context (we inject a failed preceding call)
+    # Class 6 special case: the mutation is in context (a failed preceding call is injected)
     if error_class == 6:
         corrupted = _inject_error_context(corrupted, rng)
         if corrupted is None:
@@ -614,7 +614,7 @@ def corrupt_llm(
 def _inject_error_context(ex: dict, rng: random.Random) -> Optional[dict]:
     """Class 6: inject a synthetic failed tool call just before the candidate.
 
-    We fabricate a preceding call that returns an error. The candidate call
+    A preceding call that returns an error is fabricated. The candidate call
     then proceeds as if it succeeded — illustrating 'ignored error'.
     The failing call is one that would logically precede the candidate
     (same prefix but a 'setup' variant, or same name with different args
@@ -739,7 +739,7 @@ def run_llm_corruptions(
         return []
 
     # Build work queue: (example, error_class) pairs
-    # We spread budget evenly across classes
+    # The budget is spread evenly across classes
     budget_per_class = min(max_per_class, max_llm_total // max(len(llm_classes), 1))
     print(f"  LLM budget: {budget_per_class} calls per class × {len(llm_classes)} classes")
 

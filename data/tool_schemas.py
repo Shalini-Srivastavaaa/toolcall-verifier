@@ -1,11 +1,11 @@
 """Extract tool signatures from tau2-bench domain source via static AST parsing.
 
-We deliberately do NOT `pip install -e` tau2-bench and import it at runtime:
-the package requires Python >=3.12 (we're on 3.11) and pulls in a heavy
-dependency tree (litellm, fastapi, uvicorn, ...) that we don't need just to
+tau2-bench is deliberately NOT installed with `pip install -e` or imported at runtime:
+the package requires Python >=3.12 (this project uses 3.11) and pulls in a heavy
+dependency tree (litellm, fastapi, uvicorn, ...) that is not needed just to
 read tool signatures. Parsing the source with `ast` is dependency-free,
-version-independent, and sufficient: we only need tool name + params +
-description as text to put in a judge prompt, not a machine-strict schema.
+version-independent, and sufficient: only tool name + params +
+description are needed, as text for a judge prompt, not a machine-strict schema.
 """
 
 import ast
@@ -17,9 +17,9 @@ TAU2_ROOT = Path(__file__).parent / "raw" / "tau2-bench" / "src" / "tau2" / "dom
 
 # Tools whose primary/only argument is free-form natural language. tau2's own
 # grader compares these with fuzzy/semantic matching that isn't captured by
-# the precomputed `action_checks` exact-match we use for labeling (see
-# prepare_tau2.py). We exclude them from candidate extraction rather than
-# label them off a comparison method that doesn't apply to them.
+# the precomputed `action_checks` exact-match used for labeling (see
+# prepare_tau2.py). They are excluded from candidate extraction rather than
+# labeled with a comparison method that doesn't apply to them.
 FREE_TEXT_TOOLS = {"transfer_to_human_agents"}
 
 
@@ -46,7 +46,7 @@ def _parse_docstring_args(docstring: str) -> dict[str, str]:
         m = re.match(r"^(\w+):\s*(.*)$", stripped)
         if m and line.startswith((" " * 8, "\t\t")) is False or m:
             # New "name: description" line (Google style is typically indented
-            # one level deeper than "Args:"; we don't rely on exact indent).
+            # one level deeper than "Args:"; exact indent is not relied on).
             if m and (line[:1] in (" ", "\t")):
                 current = m.group(1)
                 out[current] = m.group(2)
@@ -127,7 +127,7 @@ class Clause(NamedTuple):
             the clause is not checkable against the call history (e.g. user confirmation)
     source  where the clause came from, so evaluations can exclude the contaminated ones:
               "policy"        the benchmark's own policy / workflow documents
-              "user_example"  suggested by the project owner, mapped to real tool names
+              "user_example"  supplied as an example, mapped to real tool names
               "test_informed" added after looking at the real Class 7 rows in test_real.jsonl
     """
 

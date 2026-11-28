@@ -70,7 +70,7 @@ def result_files() -> list[Path]:
 
 
 def iter_sims(files=None):
-    """Yield every simulation with the fields we need (one file in memory at a time)."""
+    """Yield every simulation with the needed fields (one file in memory at a time)."""
     for f in files or result_files():
         d = json.load(open(f))
         for s in d["simulations"]:

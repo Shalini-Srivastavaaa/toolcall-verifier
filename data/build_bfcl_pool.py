@@ -15,7 +15,7 @@ Categories extracted:
   - multi_turn_miss_param (200): tasks where one turn's ground truth is empty (missing param)
 
 Extraction approach (positives only, see docs/decision_log.md D-008):
-  For each (task, turn_idx) pair with a non-empty ground truth, we produce
+  Each (task, turn_idx) pair with a non-empty ground truth produces
   one example:
   - Build the conversation context up to that turn (prior turns + their gold calls)
   - The candidate call is the FIRST gold action at that turn, labeled "correct"
@@ -28,7 +28,7 @@ Output format matches train_pool.jsonl with two additions:
   "bfcl_category": "base|long_context|miss_func|miss_param"
 
 Note: BFCL ground_truth calls are formatted as Python-ish strings
-  (e.g. "mv(source='x', destination='y')"). We parse them into
+  (e.g. "mv(source='x', destination='y')"). They are parsed into
   {"name": ..., "arguments": {...}} format to match tau2-bench.
 """
 
@@ -65,7 +65,7 @@ def parse_call_string(call_str: str) -> dict | None:
 
     Returns None if the string can't be parsed reliably.
     BFCL ground-truth strings are Python-ish: string values use single quotes,
-    boolean/int/None are Python literals. We use a regex approach + eval with
+    boolean/int/None are Python literals. Parsing uses a regex approach + eval with
     ast.literal_eval for safety.
     """
     import ast
@@ -193,7 +193,7 @@ def render_bfcl_context(
     Each turn consists of:
       1. The user message(s) for that turn
       2. The assistant's gold tool calls for that turn (simulated as if they happened)
-    We include the tool call but NOT a simulated tool result (BFCL doesn't supply them).
+    The tool call is included but NOT a simulated tool result (BFCL doesn't supply them).
     """
     turns = []
     for t in range(up_to_turn):

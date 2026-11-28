@@ -1,8 +1,8 @@
 """Induce real Class 2 (stale value) and Class 6 (ignored error) situations in tau2-bench runs (D-019).
 
 Natural failed runs almost never contain these (0 and 1 of 273 proposals, D-018): users rarely change their
-minds and tools rarely fail. So we create the situation and let a real agent react. We change the
-ENVIRONMENT, never the agent's calls:
+minds and tools rarely fail. So the situation is created and a real agent is left to react. Only the
+ENVIRONMENT is changed, never the agent's calls:
 
   fault       one assistant tool call (a lookup or a write, chosen with a fixed seed) returns the domain's own
               kind of error instead of running (the call is not executed, so state is unchanged)
@@ -10,7 +10,7 @@ ENVIRONMENT, never the agent's calls:
               method, item, date, quantity or passenger detail); old value, new value and timing are recorded
 
 Only tasks listed in data/derived/real_split.json are used, so a task's induced rows inherit its split.
-Every row carries source "induced_fault" or "induced_correction". Auto-labels come from what we injected and are
+Every row carries source "induced_fault" or "induced_correction". Auto-labels come from what was injected and are
 only pre-filled for a human to confirm (data/review_real.py --candidates ... --decisions ...).
 
 Run with the tau2 environment (Python 3.11, see D-019):  data/raw/.venv-tau2/bin/python3 data/induce_errors.py <stage>
@@ -785,8 +785,8 @@ def cmd_run(args):
 
 
 def cmd_estimate(args):
-    """Calibrate from the tau2 runs we already have (agent_cost / user_cost per simulation, gpt-4.1 agent and user),
-    scaled by the price ratio of the models we will use, plus a safety factor for gpt-5-nano's reasoning tokens."""
+    """Calibrate from the existing tau2 runs (agent_cost / user_cost per simulation, gpt-4.1 agent and user),
+    scaled by the price ratio of the models to be used, plus a safety factor for gpt-5-nano's reasoning tokens."""
     res = ROOT / "data" / "raw" / "tau2-bench" / "data" / "tau2" / "results" / "final"
     by = defaultdict(list)
     for f in sorted(res.glob("*gpt-4.1-2025-04-14_*_gpt-4.1-2025-04-14_4trials.json")):

@@ -124,7 +124,7 @@ Code and weights under Apache-2.0, human labels under CC BY 4.0, the test set wi
 GitHub repository, Hugging Face model and test set published. A hosted demo is pending because free Gradio hosting requires a paid Hugging Face plan; the demo runs locally.
 
 ## D-034 — Data provenance
-The dataset card states that the conversations are model-generated and the labels come from human review. The author reviewed the model providers' terms (see [`licenses.md`](licenses.md)).
+The dataset card states that the conversations are model-generated and the labels come from human review. The model providers' terms were reviewed (see [`licenses.md`](licenses.md)).
 
 ## D-035 — Wording corrections
 Statements that every test label was a human decision were corrected to describe the written rules of D-022. No data, label or number changed.

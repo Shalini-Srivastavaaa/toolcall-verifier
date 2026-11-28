@@ -1,6 +1,6 @@
 """Model + pricing config for the Phase 0 baseline.
 
-Pricing is $ per 1M tokens. We don't hardcode figures we can't verify as
+Pricing is $ per 1M tokens. Figures that can't be verified are not hardcoded as
 current — fill these in from your provider's live pricing page before
 trusting the cost-per-call numbers in the output table. Everything still
 runs with zeros; the accuracy/latency numbers are unaffected.

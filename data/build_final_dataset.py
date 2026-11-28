@@ -1,4 +1,4 @@
-"""Build the next training / validation / test sets from every source we have (D-022).
+"""Build the next training / validation / test sets from every available source (D-022).
 
     python data/build_final_dataset.py                    # dry run: build everything in memory, print the would-be counts, write nothing
     python data/build_final_dataset.py --decisions FILE   # use another decisions file (for example a made-up one to exercise the code)
