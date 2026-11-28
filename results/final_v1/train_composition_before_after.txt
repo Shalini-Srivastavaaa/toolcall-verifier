@@ -1,5 +1,5 @@
 ====================================================================================================
-BEFORE (final_v1 data): /private/tmp/claude-501/-Users-user-Projects-toolcall-verifier/1514e48c-5aea-4f89-9a24-847e357b2664/scratchpad/final_before
+BEFORE (final_v1 data): temporary copy of data/derived/final
 ====================================================================================================
 
 train: 5569 rows = 2366 errors + 3203 correct
